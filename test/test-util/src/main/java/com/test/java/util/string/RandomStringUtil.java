@@ -1,4 +1,4 @@
-package com.test.java.String.util;
+package com.test.java.util.string;
 
 import java.util.UUID;
 
