@@ -6,6 +6,6 @@
   <packaging>pom</packaging>
   <build/>
   <modules>
-  	<module>ibatis</module>
+  	<module>test-util</module>
   </modules>
 </project>
