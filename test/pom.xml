@@ -7,5 +7,6 @@
   <build/>
   <modules>
   	<module>test-util</module>
+  	<module>test-redis</module>
   </modules>
 </project>
