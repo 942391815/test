@@ -6,5 +6,19 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>test-redis</artifactId>
-  <build/>
+  
+  <dependencies>
+  <!-- redis 依赖jar包 -->
+	<dependency>
+		<groupId>redis.clients</groupId>
+		<artifactId>jedis</artifactId>
+		<version>2.5.0</version>
+	</dependency>
+	<!-- 引用test-util包 -->
+	<dependency>
+		<groupId>com.test.java</groupId>
+	 	<artifactId>test-util</artifactId>
+	    <version>0.0.1-SNAPSHOT</version>
+	</dependency>
+  </dependencies>
 </project>
