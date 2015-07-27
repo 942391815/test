@@ -3,3 +3,11 @@ redis jar
 数据库为本机redis数据库
 目前代码采取硬编码方式，不支持redis集群
 且本机没有redis没有设置用户名和密码
+
+该jar包既可以直接作为数据库用
+提供两种调用方式
+1.直接代码中引入
+2.引入spring，spring aop实现缓存功能，缓存到方法级别
+也可以作为缓存用（引入spring aop 注解实现拦截）
+
+注：解析properties host 时候可以，都好分隔支持集群方式
