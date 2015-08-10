@@ -8,5 +8,7 @@
   <modules>
   	<module>test-util</module>
   	<module>test-redis</module>
+  	<module>test-jms</module>
+  	<module>test-tbschedule</module>
   </modules>
 </project>
