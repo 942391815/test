@@ -38,7 +38,6 @@ public class TimeClient {
 	    // 当代客户端链路关闭
 	    f.channel().closeFuture().sync();
 	} finally {
-	    // 优雅退出，释放NIO线程组
 	    group.shutdownGracefully();
 	}
     }
@@ -56,6 +55,18 @@ public class TimeClient {
 		// 采用默认值
 	    }
 	}
-	new TimeClient().connect(port, "127.0.0.1");
+	for(int i=0;i<300;i++){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					new TimeClient().connect(8080, "127.0.0.1");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
     }
 }

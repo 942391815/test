@@ -1,5 +1,7 @@
 package com.test.java;
 
+import java.net.InetSocketAddress;
+
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -11,7 +13,6 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
-import java.net.InetSocketAddress;
 
 /**
  * Netty4 客户端代码
@@ -45,7 +46,7 @@ public class HelloWorldClient {
            * @author lihzh
            * @date 2013年11月16日 上午12:50:47
            */
-           @Override
+    	  
            public void channelActive(ChannelHandlerContext ctx) throws Exception {
         	   System. out .println("Hello world, I'm client.");
         	   ByteBuf firstMessage = null;
@@ -54,7 +55,6 @@ public class HelloWorldClient {
         		firstMessage.writeBytes(req);
         		ctx.writeAndFlush(firstMessage);
           }
-        @Override
    		public void channelRead(ChannelHandlerContext ctx, Object msg)
    				throws Exception {
    			ByteBuf buf = null;
