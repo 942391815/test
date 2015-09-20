@@ -12,7 +12,7 @@ public class DateUtil {
 	 * 日期转换为指定的类型
 	 * @param date
 	 * @param pattern example yyyy-MM-dd hh:mm:ss
-	 * @return
+	 * @return 日期格式化字符
 	 */
 	public static String formatDate(Date date,String pattern){
 		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
@@ -27,7 +27,7 @@ public class DateUtil {
 	 * 日期转换为指定的类型
 	 * @param date
 	 * @param pattern example yyyy-MM-dd hh:mm:ss
-	 * @return
+	 * @return 日期格式化字符
 	 */
 	public static String formatNowDate(String pattern){
 		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
@@ -42,7 +42,7 @@ public class DateUtil {
 	 * 日期字符串转换为日期
 	 * @param date
 	 * @param pattern example yyyy-MM-dd hh:mm:ss
-	 * @return
+	 * @return 转换后日期
 	 */
 	public static Date stringConvertDate(String date,String pattern){
 		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
@@ -55,9 +55,9 @@ public class DateUtil {
 	}
 	/**
 	 * 日期比较大小方法
+	 * @param date 
 	 * @param date
-	 * @param date
-	 * @return
+	 * @return 日期大小
 	 */
 	public boolean isBig(Date one, Date two){
 		if(one==null || two==null){

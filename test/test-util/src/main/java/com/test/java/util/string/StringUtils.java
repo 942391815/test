@@ -7,8 +7,8 @@ package com.test.java.util.string;
 public class StringUtils {
 	/**
 	 * 判断字符串时候为空
-	 * @param target
-	 * @return
+	 * @param target 目标字符串
+	 * @return true or false
 	 */
 	public static boolean  isNotBlank(String target){
 		if(target==null||"".equals(target.trim())){
@@ -18,8 +18,8 @@ public class StringUtils {
 	}
 	/**
 	 * 判断字符串时候为空 所有的字符串参数都不能为空
-	 * @param target
-	 * @return
+	 * @param target 目标参数
+	 * @return boolean
 	 */
 	public static boolean isNotBlank(String  ...target){
 		for(int i=0;i<target.length;i++){
@@ -28,8 +28,5 @@ public class StringUtils {
 			}
 		}
 		return true;
-	}
-	public static void main(String[] args) {
-		System.out.println(isNotBlank(""));
 	}
 }

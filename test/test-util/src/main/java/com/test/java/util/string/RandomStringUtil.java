@@ -10,12 +10,9 @@ import java.util.UUID;
 public class RandomStringUtil {
 	/**
 	 * get UUID
-	 * @return
+	 * @return 获取随机字符串
 	 */
 	public static String getRandomString(){
 		return UUID.randomUUID().toString().replace("-","");
-	}
-	public static void main(String[] args) {
-		System.out.println(getRandomString());
 	}
 }

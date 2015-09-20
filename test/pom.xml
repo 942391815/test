@@ -4,15 +4,14 @@
   <artifactId>test</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <build/>
   <modules>
   	<module>test-util</module>
   	<module>test-redis</module>
   	<module>test-jms</module>
   	<module>test-tbschedule</module>
-  	<module>netty</module>
   	<module>test-netty</module>
   	<module>test-zookeeper</module>
   	<module>test-test</module>
+  	<module>test-solr</module>
   </modules>
 </project>

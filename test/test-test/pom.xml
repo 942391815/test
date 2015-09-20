@@ -6,5 +6,11 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>test-test</artifactId>
-  <build/>
+	<dependencies>
+		<dependency>
+			  <groupId>com.rpc</groupId>
+			  <artifactId>commonrpc-tcp</artifactId>
+			  <version>1.0</version>
+		</dependency>
+	</dependencies>
 </project>
