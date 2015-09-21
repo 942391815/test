@@ -1,0 +1,24 @@
+-classpath
+'F:/git repository/test/test/test-util/target/classes'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'F:/git repository/test/test/test-util/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2015. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'F:/git repository/test/test/test-util/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'test-util 0.0.1-SNAPSHOT API'
+-linkoffline
+'http://docs.oracle.com/javase/7/docs/api' 'F:/git repository/test/test/test-util/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'test-util 0.0.1-SNAPSHOT API'
