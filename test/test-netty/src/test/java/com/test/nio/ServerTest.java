@@ -1,5 +1,4 @@
 package com.test.nio;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -25,9 +24,10 @@ public class ServerTest {
 			Selector selector=Selector.open();
 			channel=ServerSocketChannel.open();
 			channel.configureBlocking(false);
-			channel.socket().setReuseAddress(true); 
+//			channel.socket().setReuseAddress(true); 
 			channel.bind(new InetSocketAddress(8020));
-			channel.register(selector, SelectionKey.OP_ACCEPT,new Integer(1));
+//			channel.register(selector, SelectionKey.OP_ACCEPT,new Integer(1));
+			channel.register(selector, SelectionKey.OP_ACCEPT);
 				
 			while(true){
 				if(selector.select()>0){
