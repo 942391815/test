@@ -13,5 +13,6 @@
   	<module>test-zookeeper</module>
   	<module>test-test</module>
   	<module>test-solr</module>
+  	<module>test-shiro</module>
   </modules>
 </project>
