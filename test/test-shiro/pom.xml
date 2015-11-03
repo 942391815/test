@@ -12,7 +12,7 @@
 		<shiro.version>1.2.0</shiro.version>
 		<spring.version>4.0.0.RELEASE</spring.version>
 		<mybatis.version>3.2.4</mybatis.version>
-	</properties>
+	</properties> 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -150,7 +150,6 @@
 	<profiles>
 		<profile>
 			<id>dev</id>
-			<!-- 默认激活开发配制，使用 config-dev.properties来替换设置过虑的资源文件中的${key} -->
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>

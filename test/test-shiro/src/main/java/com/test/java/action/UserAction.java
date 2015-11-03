@@ -3,6 +3,8 @@ package com.test.java.action;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,12 @@ public class UserAction {
 	}
 	@RequestMapping(value="/admin/test")
 	public void adminGetUser(){
+		Subject subject = SecurityUtils.getSubject();
+		if (subject.isAuthenticated()) {
+            Object principal = subject.getPrincipal();
+           System.out.println(principal);
+        }
+		
 		List<Map> result = userService.selectAllUser();
 		System.out.println(result);
 	}
