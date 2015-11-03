@@ -36,13 +36,13 @@ public class ShiroDbRealm extends CasRealm {
 		// return null;
 	}
 
-	public String getCasServerUrlPrefix() {
-		return "http://192.168.17.222:9999/casserver";
-	}
-
-	public String getCasService() {
-		return "http://192.168.17.222:8282/cas-shiro/auth";
-	}
+//	public String getCasServerUrlPrefix() {
+//		return "http://192.168.17.222:9999/casserver";
+//	}
+//
+//	public String getCasService() {
+//		return "http://192.168.17.222:8282/cas-shiro/auth";
+//	}
 
 //	@Override
 //	protected AuthenticationInfo doGetAuthenticationInfo(
