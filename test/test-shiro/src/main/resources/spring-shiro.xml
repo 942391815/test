@@ -13,7 +13,7 @@
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl"
-			value="http://192.168.17.222:9999/casserver/login?service=http://192.168.17.222:8282/cas-shiro/auth" />
+			value="${loginUrl}" />
 		<property name="successUrl" value="/index.html" />
 		<property name="unauthorizedUrl" value="/error.jsp" />
 		<property name="filters">
@@ -45,6 +45,8 @@
 	<!-- CAS Realm -->
 	<bean id="myShiroRealm" class="com.test.java.shiro.ShiroDbRealm">
 		<property name="cacheManager" ref="shiroCacheManager" />
+		<property name="casServerUrlPrefix" value="${casServerUrlPrefix}"></property>
+		<property name="casService" value="${casService}"></property>
 	</bean>
 
 	<bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager"/>
