@@ -14,5 +14,6 @@
   	<module>test-test</module>
   	<module>test-solr</module>
   	<module>test-shiro</module>
+  	<module>test-git</module>
   </modules>
 </project>
