@@ -18,17 +18,17 @@ public class ShiroDbRealm extends CasRealm {
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(
 			PrincipalCollection principals) {
-		String username = (String) principals.fromRealm(getName()).iterator()
-				.next();
-
-		// if( username != null ){
-		// 查询用户授权信息
-		// Collection<String> pers=businessManager.queryPermissions(username);
-		// if( pers != null && !pers.isEmpty() ){
+//		String username = (String) principals.fromRealm(getName()).iterator()
+//				.next();
+//		System.out.println(username);
+//		// if( username != null ){
+//		// 查询用户授权信息
+//		// Collection<String> pers=businessManager.queryPermissions(username);
+//		// if( pers != null && !pers.isEmpty() ){
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-		// for( String each:pers )
-		// info.addStringPermissions( each );
-		info.addStringPermission("admin");
+//		// for( String each:pers )
+//		// info.addStringPermissions( each );
+//		info.addStringPermission("admin");
 		return info;
 		// }
 		// }
@@ -49,22 +49,16 @@ public class ShiroDbRealm extends CasRealm {
 //			AuthenticationToken token) throws AuthenticationException {
 ////		List principals = CollectionUtils.asList(new Object[] { userId,
 ////				attributes });
-//		 CasToken casToken = (CasToken) token;
-//		 String ticket = (String) casToken.getCredentials(); 
+//		super.doGetAuthenticationInfo(token);
+//
+//
+////		 System.out.println(casToken.getPrincipal());
+//		 String ticket = (String) token.getCredentials(); 
 //		List principals = null;
 //		PrincipalCollection principalCollection = new SimplePrincipalCollection(
 //				principals, "zhangsan");
-//		// 这里可以拿到Cas的登录账号信息,加载到对应权限体系信息放到缓存中...
-//
+////		// 这里可以拿到Cas的登录账号信息,加载到对应权限体系信息放到缓存中...
+////
 //		return new SimpleAuthenticationInfo(principalCollection, ticket);
 //	}
-
-	// public static class ShiroUser implements Serializable {
-	// private static final long serialVersionUID = -3041131129273959698L;
-	// public long id;
-	// public String name;
-	// public long type;
-	// public String account;
-	// }
-
 }
