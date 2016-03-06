@@ -1,0 +1,32 @@
+mysq sql 5.5 以下不支持limit 0，10分页
+CREATE DEFINER = `root`@`localhost` PROCEDURE `NewProc`(IN `queryStart`  int , IN `queryEnd` int)
+BEGIN
+	set @querySql=CONCAT("select * from country limit ",queryStart,",",queryEnd);
+  prepare stmt from @querySql;
+	EXECUTE stmt;
+  deallocate prepare stmt;
+END;
+
+
+CREATE DEFINER = `root`@`localhost` PROCEDURE `NewProc`()
+BEGIN
+DECLARE country_id TINYINT DEFAULT 0 ;
+DECLARE country_code varchar(10) default "";
+DECLARE name_chinese varchar(50) default "";
+DECLARE name_english varchar(50) default "";
+DECLARE done int DEFAULT false;
+DECLARE country_Cursor CURSOR for select * from country limit 0,10;
+DECLARE CONTINUE HANDLER for not found set done=true;
+open country_Cursor;
+	FETCH country_Cursor INTO country_id,country_code,name_chinese,name_english;
+	while !done DO
+		if country_id=5 THEN
+		select name_chinese;
+			set done=true;
+		END IF;
+    FETCH country_Cursor INTO country_id,country_code,name_chinese,name_english;
+	end WHILE;
+CLOSE country_Cursor;
+END;
+
+
