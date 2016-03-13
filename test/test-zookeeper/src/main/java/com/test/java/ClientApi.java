@@ -1,13 +1,10 @@
 package com.test.java;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.api.CuratorWatcher;
-import org.apache.curator.framework.api.transaction.CuratorTransaction;
-import org.apache.curator.framework.api.transaction.CuratorTransactionResult;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.apache.curator.retry.RetryNTimes;
 import org.apache.zookeeper.CreateMode;
@@ -18,7 +15,7 @@ public class ClientApi{
 	private final CuratorFramework client;
 
 	/**
-	 *zookeeperÊÂÎñ
+	 *zookeeperï¿½ï¿½ï¿½ï¿½
 	 * @throws Exception 
 	 */
 	public void intransation() throws Exception{
@@ -53,7 +50,7 @@ public class ClientApi{
 	
 	
 	/**
-	 *¼ÓËø
+	 *ï¿½ï¿½ï¿½ï¿½
 	 * @param path
 	 * @throws Exception 
 	 */
@@ -90,7 +87,7 @@ public class ClientApi{
 	}
 
 	/**
-	 * ¼ì²éÊÇ·ñ´æÔÚ
+	 * ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @param path
 	 * @return
@@ -108,7 +105,7 @@ public class ClientApi{
 	}
 
 	/**
-	 * »ñÈ¡Â·¾¶µÄÖµ
+	 * ï¿½ï¿½È¡Â·ï¿½ï¿½ï¿½ï¿½Öµ
 	 * 
 	 * @param path
 	 * @return
@@ -123,7 +120,7 @@ public class ClientApi{
 	}
 
 	/**
-	 * »ñÈ¡Ò¶×Ó½Úµã
+	 * ï¿½ï¿½È¡Ò¶ï¿½Ó½Úµï¿½
 	 * 
 	 * @param path
 	 * @return
@@ -138,7 +135,7 @@ public class ClientApi{
 	}
 
 	/**
-	 * É¾³ý½Úµãnode
+	 * É¾ï¿½ï¿½Úµï¿½node
 	 * 
 	 * @param path
 	 */
@@ -151,7 +148,7 @@ public class ClientApi{
 	}
 
 	/**
-	 * ´´½¨½Úµã
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½
 	 * 
 	 * @param path
 	 * @param value
@@ -166,7 +163,7 @@ public class ClientApi{
 	}
 
 	/**
-	 * ÐÞ¸Änode½ÚµãÖµ
+	 * ï¿½Þ¸ï¿½nodeï¿½Úµï¿½Öµ
 	 * 
 	 * @param path
 	 * @param value
@@ -183,7 +180,7 @@ public class ClientApi{
 	}
 
 //	/**
-//	 * Ìí¼Ó½Úµãlistener
+//	 * ï¿½ï¿½Ó½Úµï¿½listener
 //	 * 
 //	 * @param nc
 //	 */
