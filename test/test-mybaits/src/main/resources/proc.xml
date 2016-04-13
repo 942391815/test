@@ -7,4 +7,8 @@
 	<select id="callProc" statementType="CALLABLE" resultType="java.util.Map">
 		{call test1(#{queryStart,mode=IN,jdbcType=INTEGER},#{queryEnd,mode=IN,jdbcType=INTEGER})}
 	</select>
+	
+	<select id="selectList" resultType="java.util.Map">
+		select * from user
+	</select>
 </mapper>
