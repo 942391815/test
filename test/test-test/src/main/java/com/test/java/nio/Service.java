@@ -10,10 +10,11 @@ import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 
 public class Service {
-	public int size = 1024;
+	public int size = 4096;
 	public ByteBuffer inbuffer = ByteBuffer.allocate(size);
 	public ByteBuffer outbuffer = ByteBuffer.allocate(size);
 	Selector selector = Selector.open();
+	int i=0;
 	public Service(int port) throws Exception{
 		ServerSocketChannel channel = ServerSocketChannel.open();
 		channel.configureBlocking(false);
@@ -24,7 +25,6 @@ public class Service {
 	}
 	public void listen() throws Exception{
 		while(true){
-			int i=0;
 			selector.select();
 			Iterator<SelectionKey> keyIterator = selector.selectedKeys().iterator();
 			while(keyIterator.hasNext()){
@@ -44,10 +44,11 @@ public class Service {
 			clientChannel.configureBlocking(false);
 			clientChannel.register(selector, SelectionKey.OP_READ);
 		}else if(key.isReadable()){
+			inbuffer.clear();
 			clientChannel = (SocketChannel)key.channel();
 			int read = clientChannel.read(inbuffer);
 			if(read>0){
-				System.out.println("client message...."+new String(inbuffer.array(),0,inbuffer.position()));
+				System.out.println("server receive...."+new String(inbuffer.array(),0,read));
 				clientChannel.register(selector, SelectionKey.OP_WRITE);
 			}
 		}else if(key.isWritable()){
@@ -57,6 +58,7 @@ public class Service {
 			outbuffer.put(message.getBytes());
 			outbuffer.flip();
 			clientChannel.write(outbuffer);
+			clientChannel.register(selector, SelectionKey.OP_READ);
 		}
 	}
 	public static void main(String[] args) throws Exception{
