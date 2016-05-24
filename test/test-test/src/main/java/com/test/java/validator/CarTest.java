@@ -2,13 +2,18 @@ package com.test.java.validator;
 
 import static org.junit.Assert.assertEquals;
 
+import java.lang.reflect.Method;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import javax.validation.executable.ExecutableValidator;
 
+import org.hibernate.validator.HibernateValidator;
+import org.hibernate.validator.internal.engine.groups.DefaultValidationOrder;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -21,7 +26,21 @@ private static Validator validator;
       ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
       validator = factory.getValidator();
    }
-
+   public static void main(String[] args) throws NoSuchMethodException, SecurityException {
+	   ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+	   ExecutableValidator executableValidator = factory.getValidator().forExecutables();
+	   Car object = new Car( "Morris" );
+	   Method method = Car.class.getMethod("drive", Car.class );
+	   Object[] parameterValues = {null};
+	   Set<ConstraintViolation<Car>> violations = executableValidator.validateParameters(
+	   		object,
+	   		method,
+	   		parameterValues
+	   );
+	   Iterator<ConstraintViolation<Car>> result = violations.iterator();
+	   ConstraintViolation<Car> each = result.next();
+	   System.out.println(each.getMessage());
+   }
    @Test
    public void manufacturerIsNull() {
       Car car = new Car( null, "DD-AB-123", 4 );

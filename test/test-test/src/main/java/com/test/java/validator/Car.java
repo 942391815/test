@@ -1,26 +1,34 @@
 package com.test.java.validator;
 
+import java.util.Date;
+
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+
 public class Car {
+	public Car(){}
+    @NotNull
+    private String manufacturer;
 
-	@NotNull
-	private String manufacturer;
+    @NotNull
+    @Size(min = 2, max = 14)
+    private String licensePlate;
 
-	@NotNull
-	@Size(min = 2, max = 14)
-	private String licensePlate;
+    @Min(2)
+    private int seatCount;
 
-	@Min(2)
-	private int seatCount;
-
-	public Car(String manufacturer, String licencePlate, int seatCount) {
-		this.manufacturer = manufacturer;
-		this.licensePlate = licencePlate;
-		this.seatCount = seatCount;
-	}
+    public Car(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+    public Car(String manufacturer, String licencePlate, int seatCount) {
+        this.manufacturer = manufacturer;
+        this.licensePlate = licencePlate;
+        this.seatCount = seatCount;
+    }
 
 	public String getManufacturer() {
 		return manufacturer;
@@ -44,5 +52,12 @@ public class Car {
 
 	public void setSeatCount(int seatCount) {
 		this.seatCount = seatCount;
+	}
+	public void drive(@Valid Car age){
+		
+	}
+	@ConsistentDateParameters
+	public void valid(@Valid Date one ,Date two){
+		
 	}
 }
