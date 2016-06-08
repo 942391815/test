@@ -11,4 +11,7 @@
 	<select id="selectList" resultType="java.util.Map">
 		select * from user
 	</select>
+	<select id="selectAppForm" resultType="java.util.Map">
+		select * from appset_tenant_app_form_item
+	</select>
 </mapper>
