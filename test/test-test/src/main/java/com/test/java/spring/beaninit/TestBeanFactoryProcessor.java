@@ -3,10 +3,16 @@ package com.test.java.spring.beaninit;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.beans.factory.support.RootBeanDefinition;
 
-public class TestBeanFactory implements BeanFactoryPostProcessor{
+public class TestBeanFactoryProcessor implements BeanFactoryPostProcessor{
 	@Override
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-		System.out.println(123123123);
+		
+		RootBeanDefinition rd = new RootBeanDefinition();
+		rd.set
+			
+//		beanFactory.registerSingleton("commonService",);
+//		beanFactory.registerSingleton(beanName, singletonObject);
 	}
 }
