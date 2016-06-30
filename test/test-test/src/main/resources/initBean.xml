@@ -1,0 +1,13 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="person" class="com.test.java.spring.beaninit.Person">
+		<property name="name" value="xx"></property>
+	</bean>
+	<bean id="testBean" class="com.test.java.spring.beaninit.TestBean"></bean>
+	
+	<bean id="testBeanFactory" class="com.test.java.spring.beaninit.TestBeanFactory"></bean>
+	
+</beans>
