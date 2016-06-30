@@ -38,11 +38,12 @@ public class Consumer {
 			while (true) {
 				// 设置接收者接收消息的时间，为了便于测试，这里谁定为100s
 				TextMessage message = (TextMessage) consumer.receive(100000);
-				if (null != message) {
-					System.out.println("收到消息" + message.getText());
-				} else {
-					break;
-				}
+				throw new RuntimeException();
+//				if (null != message) {
+//					System.out.println("收到消息" + message.getText());
+//				} else {
+//					break;
+//				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

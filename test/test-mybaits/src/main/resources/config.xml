@@ -7,13 +7,16 @@
             <transactionManager type="jdbc"></transactionManager>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://127.0.0.1:3306/test"/>
-                <property name="username" value="root"/>
-                <property name="password" value="123456"/>
+                <property name="url" value="jdbc:mysql://10.1.1.68:3306/nbl_notice"/>
+                <property name="username" value="jiaoyipt"/>
+                <property name="password" value="8kS#0(M"/>
             </dataSource>
         </environment>
     </environments>
     <mappers>
         <mapper resource="proc.xml" />    
+        <mapper resource="TemplateQueryMapper.xml" />
+        <mapper class="com.test.java.annotation.AppFormDao"/>
+        <mapper class="com.test.java.annotation.MybatisAnnotation"/>
     </mappers>
 </configuration>
