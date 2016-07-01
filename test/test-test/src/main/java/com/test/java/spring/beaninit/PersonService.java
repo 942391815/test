@@ -5,10 +5,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PersonService {
-	@Autowired
+	@Autowired(required=false)
 	private CommonService commonService;
 	
 	public void getAge(){
+		System.out.println("getAge()");
 		System.out.println(commonService.getAge());
 	}
 	

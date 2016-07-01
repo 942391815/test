@@ -6,7 +6,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Test {
 	public static void main(String[] args) {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("initBean.xml");
-		ac.getBean("personService");
+		PersonService bean = (PersonService)ac.getBean("personService");
+		bean.getAge();
 	}
 }
 
