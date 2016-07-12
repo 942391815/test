@@ -14,10 +14,6 @@ import org.apache.zookeeper.data.Stat;
 public class ClientApi{
 	private final CuratorFramework client;
 
-	/**
-	 *zookeeper����
-	 * @throws Exception 
-	 */
 	public void intransation() throws Exception{
 		
 //		 try {
