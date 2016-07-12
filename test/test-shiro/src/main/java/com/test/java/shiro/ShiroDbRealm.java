@@ -23,7 +23,6 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		String userName = (String) token.getPrincipal();
 		String password = "123456";
 		String realm = "customRealm";
-		Active
 		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(userName,
 				password, realm);
 		return info;

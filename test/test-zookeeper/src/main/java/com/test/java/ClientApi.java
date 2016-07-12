@@ -13,7 +13,6 @@ import org.apache.zookeeper.data.Stat;
 
 public class ClientApi{
 	private final CuratorFramework client;
-
 	public void intransation() throws Exception{
 		
 //		 try {
@@ -43,18 +42,15 @@ public class ClientApi{
 //        } 
 		
 	}
-	
-	
 	/**
-	 *����
+	 * 节点添加锁
 	 * @param path
-	 * @throws Exception 
-	 */
+	 * @throws Exception
+     */
 	public void nodeAddLock(String path) throws Exception{
 		InterProcessMutex lock = new InterProcessMutex(client, path);
 		try {
 			lock.acquire();
-			// do some business
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
@@ -83,11 +79,10 @@ public class ClientApi{
 	}
 
 	/**
-	 * ����Ƿ����
-	 * 
+	 * 判断节点是否存在
 	 * @param path
 	 * @return
-	 */
+     */
 	public boolean isExist(String path) {
 		try {
 			Stat stat = client.checkExists().forPath(path);
@@ -99,13 +94,6 @@ public class ClientApi{
 		}
 		return true;
 	}
-
-	/**
-	 * ��ȡ·����ֵ
-	 * 
-	 * @param path
-	 * @return
-	 */
 	public byte[] getPathValue(String path) {
 		try {
 			return client.getData().forPath(path);
@@ -114,13 +102,11 @@ public class ClientApi{
 		}
 		return null;
 	}
-
 	/**
-	 * ��ȡҶ�ӽڵ�
-	 * 
+	 * 获取一个节点的子节点
 	 * @param path
 	 * @return
-	 */
+     */
 	public List<String> getChildren(String path) {
 		try {
 			return client.getChildren().forPath(path);
@@ -129,12 +115,10 @@ public class ClientApi{
 		}
 		return null;
 	}
-
 	/**
-	 * ɾ��ڵ�node
-	 * 
+	 * 删除某个节点
 	 * @param path
-	 */
+     */
 	public void deleteNode(String path) {
 		try {
 			client.delete().forPath(path);
@@ -142,13 +126,11 @@ public class ClientApi{
 			e.printStackTrace();
 		}
 	}
-
 	/**
-	 * �����ڵ�
-	 * 
+	 * 创建节点
 	 * @param path
 	 * @param value
-	 */
+     */
 	public void createNode(String path, byte[] value) {
 		try {
 			client.create().creatingParentsIfNeeded()
@@ -157,10 +139,8 @@ public class ClientApi{
 			e.printStackTrace();
 		}
 	}
-
 	/**
-	 * �޸�node�ڵ�ֵ
-	 * 
+	 * 更新节点
 	 * @param path
 	 * @param value
 	 */
@@ -174,22 +154,4 @@ public class ClientApi{
 			e.printStackTrace();
 		}
 	}
-
-//	/**
-//	 * ��ӽڵ�listener
-//	 * 
-//	 * @param nc
-//	 */
-//	public void addListeners(final NodeCache nc) {
-//		NodeCacheListener listener = new NodeCacheListener() {
-//			@Override
-//			public void nodeChanged() throws Exception {
-//				if (nc.getCurrentData() != null) {
-//
-//				}
-//			}
-//		};
-//		nc.getListenable().addListener(listener);
-//	}
-
 }
