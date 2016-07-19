@@ -29,29 +29,12 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.transaction.Transaction;
  
-/**
- * 
- * <p>
- * ·ÖÒ³²éÑ¯Ê±°ÑList·ÅÈë²ÎÊýpageÖÐ²¢·µ»Ø
- * </p>
- * 
- * @author dixingxing
- * @date 2012-7-12
- */
 @Intercepts({ @Signature(type = Executor.class, method = "query", args = { MappedStatement.class, Object.class,
         RowBounds.class, ResultHandler.class }) })
 public class PagingInterceptor implements Interceptor {
-    //´æ´¢ËùÓÐÓï¾äÃû³Æ
     HashMap<String, String> map_statement = new HashMap<String, String>();
-    //ÓÃ»§Ìá¹©·ÖÒ³¼ÆËãÌõÊýºó×º
     static final String COUNT_ID = "_count";
  
-    /**
-     * »ñÈ¡ËùÓÐstatementÓï¾äµÄÃû³Æ
-     * <p>
-     *
-     * @param configuration 
-    */
     protected synchronized void initStatementMap(Configuration configuration) {
         if (!map_statement.isEmpty()) {
             return;
@@ -62,16 +45,7 @@ public class PagingInterceptor implements Interceptor {
             map_statement.put(element, element);
         }
     }
- 
-    /**
-     * »ñÈ¡Êý¾Ý¿âÁ¬½Ó
-     * <p>
-     *
-     * @param transaction
-     * @param statementLog
-     * @return
-     * @throws SQLException 
-    */
+
     protected Connection getConnection(Transaction transaction, Log statementLog) throws SQLException {
         Connection connection = transaction.getConnection();
         if (statementLog.isDebugEnabled()) {
@@ -81,7 +55,6 @@ public class PagingInterceptor implements Interceptor {
         }
     }
  
-    @Override
     public Object intercept(Invocation invocation) throws Throwable {
         Object parameter = invocation.getArgs()[1];
         Page page = seekPage(parameter);
@@ -93,15 +66,6 @@ public class PagingInterceptor implements Interceptor {
  
     }
  
-    /**
-     * ´¦Àí·ÖÒ³µÄÇé¿ö
-     * <p>
-     * @param invocation
-     * @param parameter
-     * @param page
-     * @throws SQLException 
-    */
-    @SuppressWarnings("rawtypes")
     protected List handlePaging(Invocation invocation, Object parameter, Page page) throws Exception {
         MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
         Configuration configuration = mappedStatement.getConfiguration();
@@ -109,7 +73,6 @@ public class PagingInterceptor implements Interceptor {
             initStatementMap(configuration);
         }
         BoundSql boundSql = mappedStatement.getBoundSql(parameter);
-        // ²éÑ¯½á¹û¼¯
         StaticSqlSource sqlsource = new StaticSqlSource(configuration, getLimitString(boundSql.getSql(), page),
                 boundSql.getParameterMappings());
         MappedStatement.Builder builder = new MappedStatement.Builder(configuration, "id_temp_result", sqlsource,
@@ -119,47 +82,24 @@ public class PagingInterceptor implements Interceptor {
         MappedStatement query_statement = builder.build();
  
         List data = (List) exeQuery(invocation, query_statement);
-        //ÉèÖÃµ½page¶ÔÏó
         page.setRecords(data);
         page.setCount(getTotalSize(invocation, configuration, mappedStatement, boundSql, parameter));
  
         return data;
     }
  
-    /**
-     * ¸ù¾ÝÌá¹©µÄÓï¾äÖ´ÐÐ²éÑ¯²Ù×÷
-     * <p>
-     *
-     * @param invocation
-     * @param query_statement
-     * @return
-     * @throws Exception 
-    */
     protected Object exeQuery(Invocation invocation, MappedStatement query_statement) throws Exception {
         Object[] args = invocation.getArgs();
         return invocation.getMethod().invoke(invocation.getTarget(),
                 new Object[] { query_statement, args[1], args[2], args[3] });
     }
  
-    /**
-     * »ñÈ¡×Ü¼ÇÂ¼ÊýÁ¿
-     * <p>
-     *
-     * @param configuration
-     * @param mappedStatement
-     * @param sql
-     * @param parameter
-     * @return
-     * @throws SQLException 
-    */
-    @SuppressWarnings("rawtypes")
     protected int getTotalSize(Invocation invocation, Configuration configuration, MappedStatement mappedStatement,
             BoundSql boundSql, Object parameter) throws Exception {
  
         String count_id = mappedStatement.getId() + COUNT_ID;
         int totalSize = 0;
         if (map_statement.containsKey(count_id)) {
-            // ÓÅÏÈ²éÕÒÄÜÍ³¼ÆÌõÊýµÄsql
             List data = (List) exeQuery(invocation, mappedStatement.getConfiguration().getMappedStatement(count_id));
             if (data.size() > 0) {
                 totalSize = Integer.parseInt(data.get(0).toString());
@@ -174,26 +114,12 @@ public class PagingInterceptor implements Interceptor {
         return totalSize;
     }
  
-    /**
-     * Æ´½Ó²éÑ¯sql,¼ÓÈëlimit
-     * <p>
-     *
-     * @param sql
-     * @param page
-    */
     protected String getLimitString(String sql, Page page) {
         StringBuffer sb = new StringBuffer(sql.length() + 100);
         sb.append(sql);
         sb.append(" limit ").append(page.getStartNo() - 1).append(",").append(page.getPageSize());
         return sb.toString();
     }
- 
-    /**
-     * Æ´½Ó»ñÈ¡ÌõÊýµÄsqlÓï¾ä
-     * <p>
-     *
-     * @param sqlPrimary
-    */
     protected String getCountSql(String sqlPrimary) {
         String sqlUse = sqlPrimary.replaceAll("[\\s]+", " ");
         String upperString = sqlUse.toUpperCase();
@@ -226,20 +152,11 @@ public class PagingInterceptor implements Interceptor {
             common_count.append(paramsAndMethod[j]);
         }
         if (upperString.contains(" GROUP BY ")) {
-            throw new RuntimeException("²»Ö§³Ögroup by ·ÖÒ³,Çë×ÔÐÐÌá¹©sqlÓï¾äÒÔ ²éÑ¯Óï¾ä+_count½áÎ².");
+            throw new RuntimeException("ï¿½ï¿½Ö§ï¿½ï¿½group by ï¿½ï¿½Ò³,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á¹©sqlï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½+_countï¿½ï¿½Î².");
         }
         return return_sql.append(common_count).toString();
     }
  
-    /**
-     * ¼ÆËã×ÜÌõÊý
-     * <p>
-     *
-     * @param parameterObj
-     * @param countSql
-     * @param connection
-     * @return
-    */
     protected int getTotalSize(Configuration configuration, MappedStatement mappedStatement, BoundSql boundSql,
             String countSql, Connection connection, Object parameter) throws SQLException {
         PreparedStatement stmt = null;
@@ -268,13 +185,6 @@ public class PagingInterceptor implements Interceptor {
         return totalSize;
     }
  
-    /**
-     * Ñ°ÕÒpage¶ÔÏó
-     * <p>
-     *
-     * @param parameter
-    */
-    @SuppressWarnings("rawtypes")
     protected Page seekPage(Object parameter) {
         Page page = null;
         if (parameter == null) {
@@ -293,12 +203,10 @@ public class PagingInterceptor implements Interceptor {
         return page;
     }
  
-    @Override
     public Object plugin(Object target) {
         return Plugin.wrap(target, this);
     }
  
-    @Override
     public void setProperties(Properties properties) {
     }
 }
