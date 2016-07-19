@@ -11,7 +11,6 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class Test {
-	// 测试mybatis 调用存储过程
 	public static void main(String[] args) throws Exception {
 		SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder()
 				.build(Resources.getResourceAsReader("config.xml"));
