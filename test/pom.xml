@@ -14,8 +14,6 @@
   	<module>test-test</module>
   	<module>test-solr</module>
   	<module>test-shiro</module>
-  	<module>test-git</module>
   	<module>test-mybaits</module>
-  	<module>test-hadoop</module>
   </modules>
 </project>
