@@ -10,6 +10,10 @@ import javax.jms.TextMessage;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
+/*
+* 	如果建立了多个SESSION和CONSUMER同一时刻多个线程同时从一个队列里面读取数据
+* 	则不能保证消息的有序性
+* */
 public class Consumer {
 
 	public static void main(String[] args) {
@@ -23,6 +27,8 @@ public class Consumer {
 		try {
 			connection = connectionFactory.createConnection();
 			connection.start();
+			//connection.createSession 是否有事务，如果有事务则表示、消息消费后由MQ自动签收
+			//如果没有事务则 由设置签收模式  AUTO_ACKNOWLEDGE 自动签收， CLIENT_ACKNOWLEDGE 客户端前后
 			session = connection.createSession(Boolean.FALSE, Session.AUTO_ACKNOWLEDGE);
 			destination = session.createQueue("FirstQueue");
 			consumer = session.createConsumer(destination);
