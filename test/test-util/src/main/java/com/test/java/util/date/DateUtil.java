@@ -8,6 +8,7 @@ import java.util.Date;
  *
  */
 public class DateUtil {
+	private static final String datePattern = "yyyy-MM-dd hh:mm";
 	/**
 	 * 日期转换为指定的类型
 	 * @param date
@@ -25,7 +26,6 @@ public class DateUtil {
 	}
 	/**
 	 * 日期转换为指定的类型
-	 * @param date
 	 * @param pattern example yyyy-MM-dd hh:mm:ss
 	 * @return 日期格式化字符
 	 */
@@ -53,10 +53,17 @@ public class DateUtil {
 			return null;
 		}
 	}
+	public static Date stringConvertDate(String date){
+		SimpleDateFormat sdf = new SimpleDateFormat(datePattern);
+		try{
+			return sdf.parse(date);
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 	/**
 	 * 日期比较大小方法
-	 * @param date 
-	 * @param date
 	 * @return 日期大小
 	 */
 	public boolean isBig(Date one, Date two){
