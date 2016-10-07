@@ -17,7 +17,12 @@ public class ClientUtils {
                 .build();
         Client client = new TransportClient(settings)
                 .addTransportAddress(new InetSocketTransportAddress(
-                        "127.0.0.1", 9300));
+                        "localhost", 9300));
         return client;
+    }
+
+    public static void main(String[] args) {
+        getClient();
+        System.out.println(1123123);
     }
 }

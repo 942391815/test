@@ -1,9 +1,9 @@
 package com.test.java.elasticsearch;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.test.java.elasticsearch.content.News;
 import com.test.java.elasticsearch.content.ParseHtml;
-import net.sf.json.JSONObject;
 
 /**
  * Created by Micheal on 2016/7/24.
@@ -16,12 +16,12 @@ public class Test {
             try {
                 ParseHtml html = new ParseHtml();
                 News news = html.getNewsFromInet("https://news.cnblogs.com/n/"+i+"/");
-                System.out.println(JSONObject.fromObject(news).toString());
+                if(news.checkNews(news)){
+                    System.out.println(JSONObject.toJSON(news));
+                }
             }catch (Exception e){
                 e.printStackTrace();
             }
         }
-
-
     }
 }

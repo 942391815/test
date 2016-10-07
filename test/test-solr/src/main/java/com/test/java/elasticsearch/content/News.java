@@ -1,5 +1,7 @@
 package com.test.java.elasticsearch.content;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.Date;
 
 /**
@@ -8,8 +10,10 @@ import java.util.Date;
 public class News {
 
     private String title;
-    private Date createTime;
-    private String creater;
+
+    @JSONField(name="create_time")
+    private Long createTime;
+    private String creator;
     private String content;
 
 
@@ -21,14 +25,6 @@ public class News {
         this.title = title;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
     public String getContent() {
         return content;
     }
@@ -37,11 +33,26 @@ public class News {
         this.content = content;
     }
 
-    public String getCreater() {
-        return creater;
+    public Long getCreateTime() {
+        return createTime;
     }
 
-    public void setCreater(String creater) {
-        this.creater = creater;
+    public void setCreateTime(Long createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public boolean checkNews(News news){
+        if(news.getContent()==null||news.getCreateTime()==null||news.getCreator()==null||news.getTitle()==null){
+            return false;
+        }
+        return true;
     }
 }
