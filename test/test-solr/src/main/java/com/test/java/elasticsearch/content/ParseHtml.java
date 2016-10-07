@@ -52,7 +52,7 @@ public class ParseHtml {
             }
             news.setContent(content.toString());
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         return news;
     }

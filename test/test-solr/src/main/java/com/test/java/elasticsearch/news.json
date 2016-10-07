@@ -6,17 +6,25 @@
     }
   },
   "mappings": {
-    "article": {
+    "news": {
       "properties": {
-        "id": {
-          "type": "string"
+        "title": {
+          "type": "string",
+          "store": true,
+          "analyzer": "ik",
+          "index": "analyzed"
         },
         "content": {
           "type": "string",
-          "store": "no",
-          "index":"analyzed",
-          "indexAnalyzer": "ik",
-          "searchAnalyzer": "ik"
+          "store": false,
+          "analyzer": "ik"
+        },
+        "create_time": {
+          "type": "long",
+          "store": "no"
+        },
+        "creator": {
+          "type": "string"
         }
       }
     }
