@@ -1,0 +1,4 @@
+1.BeanFactoryPostProcessor 该接口在spring 容器加载bean的定义文件，实例化bean之前执行的。该接口可以修改bean的定义。
+
+2.BeanPostProcessor 该接口在bean初始化之后执行，初始化方法之前执行，postProcessBeforeInitialization 接口调用发生在init-mothod ，afterPropertiesSet 之前，
+postProcessAfterInitialization 方法调用在afterPropertiesSet 之后。
