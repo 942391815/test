@@ -1,12 +1,14 @@
 package com.test.java.spring.beaninit;
 
+import org.springframework.beans.factory.FactoryBean;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-import org.springframework.beans.factory.FactoryBean;
 
-public class CommonServiceFactoryBean implements FactoryBean{
+public class CommonServiceFactoryBean implements FactoryBean {
+
 	@Override
 	public Object getObject() throws Exception {
 		Class [] interfaces = CommonService.class.getInterfaces();

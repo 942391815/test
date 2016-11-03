@@ -10,13 +10,3 @@ public class Test {
 		bean.getAge();
 	}
 }
-
-
-// spring bean 的声明周期及接口顺序
-/**
-	先调用bean 的构造方法进行初始化，然后set相应的属性。 然后调用
-	beanFactoryPostProcesser
-	 postProcessBeforeInitialization
-	---》》调用InitializingBean 的afterPropertiesSet方法，最后 postProcessAfterInitialization
-
-**/

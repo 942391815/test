@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+     http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context-3.0.xsd
+     http://www.springframework.org/schema/mvc
+     http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+    <context:component-scan base-package="com.test.java" />
+
+    <bean id="scheduleManagerFactory" class="com.taobao.pamirs.schedule.TBScheduleManagerFactory"
+          init-method="init" lazy-init="false">
+        <property name="scheduleConfigCenter">
+            <ref bean="scheduleConfigCenter"/>
+        </property>
+    </bean>
+
+
+    <bean id="scheduleConfigCenter"
+          class="com.taobao.pamirs.schedule.ScheduleConfigCenterClientByDatabase">
+        <property name="dataBaseType" value="oracle"/>
+        <property name="dataSource" ref="tmsWorkerDatasource"/>
+        <property name="tableMap">
+            <map>
+                <entry key="pamirs_schedule_queue">
+                    <value>PAMIRS_SCHEDULE_QUEUE</value>
+                </entry>
+                <entry key="pamirs_schedule_server">
+                    <value>PAMIRS_SCHEDULE_SERVER</value>
+                </entry>
+                <entry key="pamirs_schedule_tasktype">
+                    <value>PAMIRS_SCHEDULE_TASKTYPE</value>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <!-- TMS_WORKER 数据源 -->
+    <bean id="tmsWorkerDatasource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+      <!--  <property name="driverClassName" value="com.mysql.jdbc.Driver"/>-->
+        <property name="url" value="jdbc:oracle:thin:@192.168.144.153:1521:bddb"/>
+        <property name="username" value="tms_worker"/>
+        <property name="password" value="123456"/>
+    </bean>
+
+</beans>
