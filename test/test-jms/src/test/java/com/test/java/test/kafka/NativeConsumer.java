@@ -44,7 +44,7 @@ public class NativeConsumer {
         int threadNumber = 0;
         for (final KafkaStream stream : streams) {
             executor.submit(new ConsumerTest(stream, threadNumber));
-            threadNumber++;
+//            threadNumber++;
         }
     }
 
@@ -60,9 +60,9 @@ public class NativeConsumer {
     }
 
     public static void main(String[] args) {
-        String zooKeeper = "192.168.0.128:2181";
+        String zooKeeper = "127.0.0.1:2181";
         String groupId = "mygroup";
-        String topic = "test";
+        String topic = "test11";
         int threads = 1;
 
         NativeConsumer example = new NativeConsumer(zooKeeper, groupId, topic);
@@ -73,7 +73,7 @@ public class NativeConsumer {
         } catch (InterruptedException ie) {
 
         }
-        //example.shutdown();
+//        example.shutdown();
     }
 }
 
@@ -90,9 +90,7 @@ class ConsumerTest implements Runnable {
         ConsumerIterator<byte[], byte[]> it = m_stream.iterator();
         while (it.hasNext()) {
             MessageAndMetadata<byte[], byte[]> next = it.next();
-            System.out.println(next.offset());
-            System.out.println("Thread " + m_threadNumber + ": " + new String(next.message()));
-            System.out.println("Shutting down Thread: " + m_threadNumber);
+            System.out.println("Thread " + m_threadNumber + ": " + new String(next.message())+"    ThreadNmae"+Thread.currentThread().getName());
         }
     }
 }

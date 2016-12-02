@@ -12,12 +12,12 @@ import java.util.Random;
  */
 public class KafkaProducer {
     public static void main(String[] args) {
-        String topic= "test";
-        long events = 1;
+        String topic= "test11";
+        long events = 10000;
         Random rand = new Random();
 
         Properties props = new Properties();
-        props.put("metadata.broker.list", "192.168.0.128:9092");
+        props.put("metadata.broker.list", "127.0.0.1:9092");
         props.put("serializer.class", "kafka.serializer.StringEncoder");
         props.put("request.required.acks", "1");
 
