@@ -11,7 +11,7 @@
 
     <context:component-scan base-package="com.test.java" />
 
-    <bean id="scheduleManagerFactory" class="com.taobao.pamirs.schedule.TBScheduleManagerFactory"
+    <bean id="scheduleManagerFactory" class="com.taobao.pamirs.schedule.strategy.TBScheduleManagerFactory"
           init-method="init" lazy-init="false">
         <property name="scheduleConfigCenter">
             <ref bean="scheduleConfigCenter"/>
