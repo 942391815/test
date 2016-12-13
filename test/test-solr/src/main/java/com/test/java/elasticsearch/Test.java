@@ -26,11 +26,12 @@ public class Test {
                     System.out.println(i);
                 }
             } catch (Exception e) {
+                e.getCause().toString();
                 e.printStackTrace();
             }
         }
             EsService esService = new EsService();
-            esService.bulkInsert(list);
+//            esService.bulkInsert(list);
 
         }
 }

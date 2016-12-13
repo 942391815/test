@@ -1,7 +1,6 @@
 package com.test.java;
 
-import com.taobao.pamirs.schedule.TBScheduleManagerFactory;
-import org.springframework.context.ApplicationContext;
+import com.taobao.pamirs.schedule.strategy.TBScheduleManagerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Properties;

@@ -15,5 +15,6 @@
   	<module>test-solr</module>
   	<module>test-shiro</module>
   	<module>test-mybaits</module>
+	  <module>test-lucene</module>
   </modules>
 </project>
