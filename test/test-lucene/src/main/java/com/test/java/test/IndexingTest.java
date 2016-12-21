@@ -1,66 +1,72 @@
-//package com.test.java.test;
-//
-//import org.apache.lucene.analysis.WhitespaceAnalyzer;
-//import org.apache.lucene.document.Document;
-//import org.apache.lucene.document.Field;
-//import org.apache.lucene.index.IndexReader;
-//import org.apache.lucene.index.IndexWriter;
-//import org.apache.lucene.index.Term;
-//import org.apache.lucene.search.IndexSearcher;
-//import org.apache.lucene.search.Query;
-//import org.apache.lucene.search.TermQuery;
-//import org.apache.lucene.search.TopDocs;
-//import org.apache.lucene.store.Directory;
-//import org.apache.lucene.store.RAMDirectory;
-//
-///**
-// * Created by qiaogu on 2016/12/11.
-// */
-//public class IndexingTest {
-//    protected String [] ids = {"1","2"};
-//    private  String []unindexed = {"nitherlands"," italy"};
-//    private String[] unstored={"Amsterdam has a lots of branges","Venice has lots of canals"};
-//    private String [] text = {"Amsterdam","Venice"};
-//    private Directory directory;
-//    protected void setUp() throws Exception{
-//        directory = new RAMDirectory();
-//
-//        IndexWriter writer = getWriter();
-//
-//        for (int i=0;i<ids.length;i++){
-//            Document doc = new Document();
-//            doc.add(new Field("id",ids[i],Field.Store.YES,Field.Index.NOT_ANALYZED));
-//            doc.add(new Field("country",unindexed[i],Field.Store.YES,Field.Index.NO));
-//            doc.add(new Field("contents",unstored[i],Field.Store.NO,Field.Index.ANALYZED));
-//            doc.add(new Field("city",text[i],Field.Store.YES,Field.Index.ANALYZED));
-//            writer.addDocument(doc);
-//        }
-//        writer.close();
-//    }
-//
-//    public IndexWriter getWriter() throws Exception{
-//        return new IndexWriter(directory,new WhitespaceAnalyzer(),IndexWriter.MaxFieldLength.UNLIMITED);
-//    }
-//
-//
-//    private int getHitCount(String fieldName,String searchString) throws Exception{
-//        IndexSearcher searcher = new IndexSearcher(directory);
-//        Term t = new Term(fieldName,searchString);
-//        Query query = new TermQuery(t);
-////        searcher.
-//        TopDocs search = searcher.search(query, Integer.MAX_VALUE);
-////        int hitCount =
-//
-//        searcher.close();
-//        return 0;
-//    }
-//    public void  testIndexWriter() throws Exception{
-//        IndexWriter writer = getWriter();
-//        writer.close();
-//    }
-//    public void testIndexReader() throws Exception{
-//        IndexReader reader = IndexReader.open(directory);
-//
-//    }
-//
-//}
+package com.test.java.test;
+
+import com.alibaba.fastjson.JSONObject;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.document.*;
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.Term;
+import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.search.*;
+import org.apache.lucene.store.RAMDirectory;
+import org.apache.lucene.util.BytesRef;
+
+/**
+ * Created by qiaogu on 2016/12/11.
+ */
+public class IndexingTest {
+    public static void main(String[] args) throws Exception{
+        RAMDirectory directory = new RAMDirectory();
+        StandardAnalyzer standardAnalyzer = new StandardAnalyzer();
+        IndexWriterConfig config = new IndexWriterConfig(standardAnalyzer);
+        IndexWriter indexWriter = new IndexWriter(directory, config);
+
+        for(int i=0;i<100;i++){
+            Document document = new Document();
+            document.add(new IntField("age",i, Field.Store.YES));
+            document.add(new StringField("name","name"+i, Field.Store.YES));
+            indexWriter.addDocument(document);
+        }
+        indexWriter.close();
+
+        DirectoryReader reader = DirectoryReader.open(directory);
+        IndexSearcher indexSearcher = new IndexSearcher(reader);
+
+//        Query ageTerm = new TermQuery(new Term("age", "7"));
+//        Query ageTerm = new TermQuery(new Term("age", "7"));
+
+//        new NumericRangeQuery<Integer>
+        NumericRangeQuery<Integer> rangeQuery = NumericRangeQuery.newIntRange("age",1, 10, true, true);
+
+        TopDocs topDocs = indexSearcher.search(rangeQuery, 5);
+        ScoreDoc[] scoreDocs = topDocs.scoreDocs;
+        for(int i=0;i<scoreDocs.length;i++){
+            Document hitDoc = indexSearcher.doc(scoreDocs[i].doc);
+            System.out.println(hitDoc.get("name"));
+            System.out.println(JSONObject.toJSONString(hitDoc));
+        }
+
+    }
+
+    class Person{
+        String name;
+        String age;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getAge() {
+            return age;
+        }
+
+        public void setAge(String age) {
+            this.age = age;
+        }
+    }
+}
