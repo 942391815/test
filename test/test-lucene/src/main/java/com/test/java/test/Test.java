@@ -50,7 +50,6 @@ public class Test {
 //            doc.add(new LongField("fieldValue", 150L,FieldType.NumericType));
 
 //            doc.add(new NumericDocValuesField("fieldValue",300));
-
             doc.add(new LongField("fieldValue", 150L, Field.Store.YES));
             iwriter.addDocument(doc);
         }

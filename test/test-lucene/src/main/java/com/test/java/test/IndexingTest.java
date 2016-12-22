@@ -8,6 +8,7 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.queryparser.xml.builders.BooleanQueryBuilder;
 import org.apache.lucene.search.*;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.BytesRef;
@@ -33,20 +34,23 @@ public class IndexingTest {
         DirectoryReader reader = DirectoryReader.open(directory);
         IndexSearcher indexSearcher = new IndexSearcher(reader);
 
-//        Query ageTerm = new TermQuery(new Term("age", "7"));
-//        Query ageTerm = new TermQuery(new Term("age", "7"));
-
-//        new NumericRangeQuery<Integer>
         NumericRangeQuery<Integer> rangeQuery = NumericRangeQuery.newIntRange("age",1, 10, true, true);
 
         TopDocs topDocs = indexSearcher.search(rangeQuery, 5);
         ScoreDoc[] scoreDocs = topDocs.scoreDocs;
         for(int i=0;i<scoreDocs.length;i++){
             Document hitDoc = indexSearcher.doc(scoreDocs[i].doc);
-            System.out.println(hitDoc.get("name"));
+            System.out.println(hitDoc.get("age"));
             System.out.println(JSONObject.toJSONString(hitDoc));
         }
+        BooleanQuery.Builder builder = new BooleanQuery.Builder();
+        builder.add(rangeQuery, BooleanClause.Occur.MUST);
 
+        TermQuery termQuery = new TermQuery(new Term("name","name7"));
+        builder.add(termQuery,BooleanClause.Occur.MUST_NOT);
+
+        TopDocs search = indexSearcher.search(builder.build(), 5);
+        System.out.println("total hits ..."+search.totalHits);
     }
 
     class Person{
