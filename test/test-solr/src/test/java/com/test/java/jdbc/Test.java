@@ -90,6 +90,7 @@ public class Test {
 		UpdateRequestBuilder updateRequestBuilder = client.prepareUpdate("fresh_tms_waybill", "fresh_tms_waybill", "VB33014945438").setDoc(jsonData);
 
 		updateRequestBuilder.setDocAsUpsert(true);
+		updateRequestBuilder.setDetectNoop(true);
 		BulkRequestBuilder bulkRequestBuilder = client.prepareBulk();
 		bulkRequestBuilder.add(updateRequestBuilder);
 
