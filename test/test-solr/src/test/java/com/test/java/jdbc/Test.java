@@ -1,14 +1,18 @@
 package com.test.java.jdbc;
 
+import org.elasticsearch.action.bulk.BulkRequestBuilder;
+import org.elasticsearch.action.bulk.BulkResponse;
+import org.elasticsearch.action.update.UpdateRequestBuilder;
+import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.common.xcontent.XContentFactory;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Test {
 	 public static void main(String[] args) {
@@ -19,21 +23,21 @@ public class Test {
 		   ResultSet rs = null;
 		         try {
 //		        	 select t.PROJECT_NUMBER,t.project_name,t.TENDER_NAMES,t.TENDERINGS,t.REGION,t.PROCESS_INSTANCE_ID,t.PROJECT_AMOUNT_RMB from proj_inter_project t
-		           //µÚÒ»²½£º¼ÓÔØMySQLµÄJDBCµÄÇý¶¯
+		           //ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½MySQLï¿½ï¿½JDBCï¿½ï¿½ï¿½ï¿½
 		              Class.forName("com.mysql.jdbc.Driver"); 
-		            //È¡µÃÁ¬½ÓµÄ url,ÄÜ·ÃÎÊMySQLÊý¾Ý¿âµÄÓÃ»§Ãû,ÃÜÂë£»Êý¾Ý¿âÃû
+		            //È¡ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ url,ï¿½Ü·ï¿½ï¿½ï¿½MySQLï¿½ï¿½Ý¿ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ë£»ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½
 		           String url = "jdbc:mysql://localhost:3306/test";
 		           String user = "root";
 		           String password = "123";
-		         //µÚ¶þ²½£º´´½¨ÓëMySQLÊý¾Ý¿âµÄÁ¬½ÓÀàµÄÊµÀý
+		         //ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½MySQLï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½
 		           conn = DriverManager.getConnection(url, user, password);
-		         //µÚÈý²½£ºÓÃconn´´½¨Statement¶ÔÏóÀàÊµÀý stmt
+		         //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½connï¿½ï¿½ï¿½ï¿½Statementï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ stmt
 		           stmt = conn.createStatement();
-		         //µÚËÄ²½£ºÖ´ÐÐ²éÑ¯£¬ÓÃResultSetÀàµÄ¶ÔÏó£¬·µ»Ø²éÑ¯µÄ½á¹û
+		         //ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ResultSetï¿½ï¿½Ä¶ï¿½ï¿½ó£¬·ï¿½ï¿½Ø²ï¿½Ñ¯ï¿½Ä½ï¿½ï¿½
 		           String sql = "select t.PROJECT_NUMBER,t.project_name,t.TENDER_NAMES,t.TENDERINGS,t.REGION,t.PROCESS_INSTANCE_ID,t.PROJECT_AMOUNT_RMB from proj_inter_project t";
 		           rs = stmt.executeQuery(sql);
 		           while(rs.next()){
-		            System.out.println(rs.getString("id"));      //È¡µÃÊý¾Ý¿âÖÐµÄÊý¾Ý
+		            System.out.println(rs.getString("id"));      //È¡ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½
 		            System.out.println(rs.getString("desc"));
 		            map.put("project_number", rs.getString("PROJECT_NUMBER"));
 		            map.put("project_name", rs.getString("project_name"));
@@ -44,10 +48,10 @@ public class Test {
 		            map.put("project_amount_rmb", rs.getString("PROJECT_AMOUNT_RMB"));
 		           }
 		         } catch (ClassNotFoundException e) {  
-		         //¼ÓÔØJDBC´íÎó,ËùÒªÓÃµÄÇý¶¯Ã»ÓÐÕÒµ½
-		          System.out.println("Çý¶¯¼ÓÔØ´íÎó");
+		         //ï¿½ï¿½ï¿½ï¿½JDBCï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Òªï¿½Ãµï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Òµï¿½
+		          System.out.println("ï¿½ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½");
 		   }catch (SQLException ex) {
-		     //ÏÔÊ¾Êý¾Ý¿âÁ¬½Ó´íÎó»ò²éÑ¯´íÎó
+		     //ï¿½ï¿½Ê¾ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
 		     System.err.println("SQLException:"+ex.getMessage());
 		   }finally {
 		         try{
@@ -68,4 +72,28 @@ public class Test {
 		         }
 		   }
 		 }
+	public static void updateFreshTmsWaybill() throws Exception {
+		TransportClient client = null;
+
+		XContentBuilder jsonBuild = XContentFactory.jsonBuilder();
+		jsonBuild.startObject();
+		jsonBuild.field("sign_in_time", new Date().getTime())
+				.field("sign_in_site_id", 969)
+				.field("sign_in_area_id", 1201)
+				.field("sign_in_org_id", 6)
+				.field("waybill_code", "VB33014945438")
+				.field("waybill_state", 150);
+		jsonBuild.endObject();
+
+		String jsonData = jsonBuild.string();
+
+		UpdateRequestBuilder updateRequestBuilder = client.prepareUpdate("fresh_tms_waybill", "fresh_tms_waybill", "VB33014945438").setDoc(jsonData);
+
+		updateRequestBuilder.setDocAsUpsert(true);
+		BulkRequestBuilder bulkRequestBuilder = client.prepareBulk();
+		bulkRequestBuilder.add(updateRequestBuilder);
+
+		BulkResponse bulkItemResponses = bulkRequestBuilder.execute().actionGet();
+		System.out.println(bulkItemResponses.buildFailureMessage());
+	}
 }
