@@ -3,14 +3,13 @@ package com.test.java.exam;
 import com.test.java.IndexReaderUtils;
 import com.test.java.IndexWriterUtis;
 import com.test.java.util.poi.TestPoi;
-import org.apache.lucene.analysis.hunspell.Dictionary;
 import org.apache.lucene.document.*;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TermQuery;
-import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.FSDirectory;
 
 import java.io.FileInputStream;
@@ -23,18 +22,30 @@ import java.util.Map;
  */
 public class Test {
     public static void main(String[] args) throws Exception{
+        updateIndex();
+//        queryIndex();
+//        writeIndex();
+    }
+
+    private static void queryIndex() throws Exception {
         FSDirectory directory = FSDirectory.open(Paths.get("d:\\index"));
         IndexReader indexReader = IndexReaderUtils.getIndexWriter(directory);
         IndexSearcher indexSearcher = new IndexSearcher(indexReader);
 
-        TermQuery termQuery = new TermQuery(new Term("name", "原  超"));
-        TopDocs search = indexSearcher.search(termQuery, 100);
-        int totalHits = search.totalHits;
+        TermQuery termQuery = new TermQuery(new Term("name", "张聪"));
+        ScoreDoc[] scoreDocs = indexSearcher.search(termQuery, 100).scoreDocs;
+        int totalHits = scoreDocs.length;
         for (int i=0;i<totalHits;i++){
-            Document doc = indexSearcher.doc(i);
-            System.out.println(doc.get("half_written_score"));
+            Document doc = indexSearcher.doc(scoreDocs[i].doc);
+            System.out.println(doc.get("name"));
         }
-        System.out.println(search.totalHits);
+    }
+
+    private static void updateIndex() throws Exception {
+        FSDirectory directory = FSDirectory.open(Paths.get("d:\\index"));
+        IndexWriter indexWriter = IndexWriterUtis.getIndexWriter(directory);
+        indexWriter.updateDocValues(new Term("code","1601010127"),new StringField("name","张聪",Field.Store.YES));
+        indexWriter.close();
     }
 
 
@@ -42,8 +53,9 @@ public class Test {
         List<Map<String, String>> mapList = TestPoi.analysisExcel(new FileInputStream("D:\\20160807172927448.xls"));
         FSDirectory directory = FSDirectory.open(Paths.get("d:\\index"));
         IndexWriter indexWriter = IndexWriterUtis.getIndexWriter(directory);
-        for (Map<String,String> each:mapList){
+        for (int i=0;i<mapList.size();i++){
             Document document = new Document();
+            Map<String, String> each = mapList.get(i);
             document.add(new StringField("code",each.get("code"), Field.Store.YES));
             document.add(new StringField("name",each.get("name"), Field.Store.YES));
             document.add(new StringField("job_name",each.get("job_name"), Field.Store.YES));
@@ -51,6 +63,7 @@ public class Test {
             document.add(new FloatField("written_score",Float.parseFloat(each.get("written_score")), Field.Store.YES));
             document.add(new FloatField("half_written_score",Float.parseFloat(each.get("half_written_score")), Field.Store.YES));
             document.add(new FloatField("Interview_score",Float.parseFloat(each.get("Interview_score")), Field.Store.YES));
+            document.add(new FloatField("half_Interview_score",Float.parseFloat(each.get("half_Interview_score")), Field.Store.YES));
             document.add(new FloatField("all_score",Float.parseFloat(each.get("all_score")), Field.Store.YES));
 
             document.add(new IntField("rank",Integer.parseInt(each.get("rank")), Field.Store.YES));

@@ -10,6 +10,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,8 +50,10 @@ public class TestPoi {
                 HSSFCell cell = row.getCell(j);
                 String cellValue = null;
                 if(titleList.get(j).equals("code")||titleList.get(j).equals("rank")||titleList.get(j).equals("job_code")){
-                    if(getCellValue(cell)!=null){
-                        cellValue = (int )Float.parseFloat(getCellValue(cell))+"";
+                    String cellValue1 = getCellValue(cell);
+                    if(cellValue1!=null){
+                        BigDecimal bigDecimal =new BigDecimal(cellValue1);
+                        cellValue = bigDecimal.intValue()+"";
                     }
                 }else {
                     cellValue = getCellValue(cell);
@@ -68,7 +71,6 @@ public class TestPoi {
 
     public static String getCellValue(HSSFCell cell){
         DecimalFormat df = new DecimalFormat("0.00");
-        String regx =  "^((-?\\d+.?\\d*)[Ee]{1}(-?\\d+))$";
         String result=null ;
         switch (cell.getCellType()){
             case HSSFCell.CELL_TYPE_STRING:
