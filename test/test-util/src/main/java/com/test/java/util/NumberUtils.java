@@ -14,10 +14,6 @@ public class NumberUtils {
         Pattern patternENumber = Pattern.compile(regxENumber);
         return patternNumber.matcher(number).matches()||patternENumber.matcher(number).matches();
     }
-
-    public static void main(String[] args) {
-        System.out.println(isNumber("1.601010302E9"));
-    }
 }
 
 

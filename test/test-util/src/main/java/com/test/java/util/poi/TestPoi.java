@@ -1,4 +1,4 @@
-package com.test.java;
+package com.test.java.util.poi;
 
 import com.test.java.util.NumberUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -10,9 +10,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +29,7 @@ public class TestPoi {
         }
     }
 
-    private static List<Map<String, String>> analysisExcel(FileInputStream fis) throws IOException {
+    public static List<Map<String, String>> analysisExcel(FileInputStream fis) throws IOException {
         POIFSFileSystem poifsFileSystem = new POIFSFileSystem(fis);
         HSSFWorkbook hssfWorkbook = new HSSFWorkbook(poifsFileSystem);
         HSSFSheet sheet = hssfWorkbook.getSheetAt(0);
@@ -50,7 +48,7 @@ public class TestPoi {
             for (int j = 0; j < physicalNumberOfCells; j++) {
                 HSSFCell cell = row.getCell(j);
                 String cellValue = null;
-                if(titleList.get(j).equals("code")){
+                if(titleList.get(j).equals("code")||titleList.get(j).equals("rank")||titleList.get(j).equals("job_code")){
                     if(getCellValue(cell)!=null){
                         cellValue = (int )Float.parseFloat(getCellValue(cell))+"";
                     }

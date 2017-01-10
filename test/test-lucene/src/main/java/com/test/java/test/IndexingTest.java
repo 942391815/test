@@ -1,32 +1,25 @@
 package com.test.java.test;
 
 import com.alibaba.fastjson.JSONObject;
-import org.apache.lucene.analysis.core.SimpleAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.document.*;
-import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.IndexWriterConfig;
-import org.apache.lucene.index.Term;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.document.IntField;
+import org.apache.lucene.document.StringField;
+import org.apache.lucene.index.*;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
-import org.apache.lucene.queryparser.classic.QueryParser;
-import org.apache.lucene.queryparser.xml.builders.BooleanQueryBuilder;
 import org.apache.lucene.search.*;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.BytesRef;
-import org.apache.lucene.util.Version;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by qiaogu on 2016/12/11.
  */
 public class IndexingTest {
     public static void main(String[] args) throws Exception {
-//        testBooleanQuery();
-//        QueryParser parser = new QueryParser("subject", new StandardAnalyzer());
-//        Query computer = parser.parse("computer");
-//        System.out.println(computer);
         testMultiFieldQueryParser();
     }
 
@@ -50,9 +43,13 @@ public class IndexingTest {
 
         for (int i = 0; i < scoreDocs.length; i++) {
             Document hitDoc = indexSearcher.doc(scoreDocs[i].doc);
+            List<IndexableField> fields1 = hitDoc.getFields();
             System.out.println(hitDoc.get("name"));
             System.out.println(hitDoc.get("content"));
-            System.out.println(JSONObject.toJSONString(hitDoc));
+            for (IndexableField each:fields1){
+                System.out.println(each);
+            }
+            System.out.println(JSONObject.toJSONString(fields1));
         }
     }
 
