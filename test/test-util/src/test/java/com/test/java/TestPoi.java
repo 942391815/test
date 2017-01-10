@@ -9,7 +9,10 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +24,14 @@ import java.util.Map;
 public class TestPoi {
     public static void main(String[] args) throws Exception {
         FileInputStream fis = new FileInputStream(new File("D:\\20160807172927448.xls"));
+        List<Map<String, String>> result = analysisExcel(fis);
+
+        for (Map<String,String> each:result){
+            System.out.println(each);
+        }
+    }
+
+    private static List<Map<String, String>> analysisExcel(FileInputStream fis) throws IOException {
         POIFSFileSystem poifsFileSystem = new POIFSFileSystem(fis);
         HSSFWorkbook hssfWorkbook = new HSSFWorkbook(poifsFileSystem);
         HSSFSheet sheet = hssfWorkbook.getSheetAt(0);
@@ -29,14 +40,6 @@ public class TestPoi {
 
         List<Map<String,String>> result = new ArrayList<Map<String,String>>();
 
-        analysisExcel(sheet, physicalNumberOfRows, titleList, result);
-
-        for (Map<String,String> each:result){
-            System.out.println(each);
-        }
-    }
-
-    private static void analysisExcel(HSSFSheet sheet, int physicalNumberOfRows, List<String> titleList, List<Map<String, String>> result) {
         for (int i = 2; i < physicalNumberOfRows; i++) {
             HSSFRow row = sheet.getRow(i);
             if (row==null||row.getCell(0) == null) {
@@ -62,6 +65,7 @@ public class TestPoi {
                 result.add(each);
             }
         }
+        return result;
     }
 
     public static String getCellValue(HSSFCell cell){
