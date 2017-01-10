@@ -11,6 +11,7 @@ import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.util.BytesRef;
 
 import java.io.FileInputStream;
 import java.nio.file.Paths;
@@ -22,9 +23,9 @@ import java.util.Map;
  */
 public class Test {
     public static void main(String[] args) throws Exception{
-        updateIndex();
+//        updateIndex();
 //        queryIndex();
-//        writeIndex();
+        writeIndex();
     }
 
     private static void queryIndex() throws Exception {
@@ -32,7 +33,7 @@ public class Test {
         IndexReader indexReader = IndexReaderUtils.getIndexWriter(directory);
         IndexSearcher indexSearcher = new IndexSearcher(indexReader);
 
-        TermQuery termQuery = new TermQuery(new Term("name", "张聪"));
+        TermQuery termQuery = new TermQuery(new Term("code", "1601010127"));
         ScoreDoc[] scoreDocs = indexSearcher.search(termQuery, 100).scoreDocs;
         int totalHits = scoreDocs.length;
         for (int i=0;i<totalHits;i++){
@@ -44,7 +45,11 @@ public class Test {
     private static void updateIndex() throws Exception {
         FSDirectory directory = FSDirectory.open(Paths.get("d:\\index"));
         IndexWriter indexWriter = IndexWriterUtis.getIndexWriter(directory);
-        indexWriter.updateDocValues(new Term("code","1601010127"),new StringField("name","张聪",Field.Store.YES));
+        Document document = new Document();
+        StringField field = new StringField("name", "张聪", Field.Store.YES);
+        document.add(field);
+        indexWriter.updateDocument(new Term("code","1601010127"),document);
+        indexWriter.flush();
         indexWriter.close();
     }
 
@@ -56,8 +61,9 @@ public class Test {
         for (int i=0;i<mapList.size();i++){
             Document document = new Document();
             Map<String, String> each = mapList.get(i);
+
             document.add(new StringField("code",each.get("code"), Field.Store.YES));
-            document.add(new StringField("name",each.get("name"), Field.Store.YES));
+            document.add(new StoredField("name",new BytesRef(each.get("name").getBytes())));
             document.add(new StringField("job_name",each.get("job_name"), Field.Store.YES));
             document.add(new StringField("job_code",each.get("job_code"), Field.Store.YES));
             document.add(new FloatField("written_score",Float.parseFloat(each.get("written_score")), Field.Store.YES));
