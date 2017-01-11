@@ -13,8 +13,10 @@
         <property name="interceptorNames">
             <list>
                 <value>testAdvisor</value>
+                <value>interceptor</value>
             </list>
         </property>
     </bean>
     <bean id="personService" class="com.test.java.testaop.PersonServiceImpl"/>
+    <bean id="interceptor" class="com.test.java.testaop.TestInterceptor"/>
 </beans>
