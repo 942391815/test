@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="testAdvisor" class="com.test.java.testaop.CountingBeforeAdvice"/>
+    <bean id="testAop" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces">
+            <value>com.test.java.testaop.PersonService</value>
+        </property>
+        <property name="target" ref="personService">
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <value>testAdvisor</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="personService" class="com.test.java.testaop.PersonServiceImpl"/>
+</beans>
