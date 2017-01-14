@@ -7,61 +7,29 @@
         <groupId>com.test.java</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <properties>
-        <lucene.version>5.5.0</lucene.version>
-    </properties>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>test-lucene</artifactId>
     <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>org.apache.lucene</groupId>-->
-            <!--<artifactId>lucene-core</artifactId>-->
-            <!--<version>3.6.1</version>-->
-            <!---->
-        <!--</dependency>-->
-
         <dependency>
             <groupId>org.apache.lucene</groupId>
             <artifactId>lucene-core</artifactId>
-            <version>${lucene.version}</version>
+            <version>3.5.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-analyzers-common</artifactId>
-            <version>${lucene.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-queryparser</artifactId>
-            <version>${lucene.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-highlighter</artifactId>
-            <version>${lucene.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-queries</artifactId>
-            <version>${lucene.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.4</version>
-        </dependency>
-        <dependency>
-            <groupId>com.test.java</groupId>
-            <artifactId>test-util</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.test.java</groupId>
-            <artifactId>test-util</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
+        <!--<dependency>-->
+            <!--<groupId>org.apache.lucene</groupId>-->
+            <!--<artifactId>lucene-analyzers-common</artifactId>-->
+            <!--<version>5.5.0</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.lucene</groupId>-->
+            <!--<artifactId>lucene-queryparser</artifactId>-->
+            <!--<version>5.5.0</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.lucene</groupId>-->
+            <!--<artifactId>lucene-highlighter</artifactId>-->
+            <!--<version>5.5.0</version>-->
+        <!--</dependency>-->
     </dependencies>
 </project>
