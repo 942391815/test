@@ -1,0 +1,76 @@
+{
+  "settings": {
+    "number_of_shards": 5,
+    "number_of_replicas": 1
+  },
+  "mappings": {
+    "exam": {
+      "dynamic": "false",
+      "_all": {
+        "enabled": false
+      },
+      "_ttl": {
+        "enabled": true,
+        "default": "15d"
+      },
+      "properties": {
+        "code": {
+          "index": "not_analyzed",
+          "type": "string",
+          "doc_values": true
+        },
+        "name": {
+          "index": "not_analyzed",
+          "type": "string",
+          "doc_values": true
+        },
+        "job_name": {
+          "type": "string",
+          "doc_values": true,
+          "index": "analyzed",
+          "analyzer": "ik"
+        },
+        "job_code": {
+          "type": "string",
+          "doc_values": true,
+          "index": "not_analyzed"
+        },
+        "written_score": {
+          "type": "float",
+          "doc_values": true,
+          "index": "not_analyzed"
+        },
+        "half_written_score": {
+          "type": "float",
+          "index": "not_analyzed",
+          "doc_values": true
+        },
+        "Interview_score": {
+          "type": "float",
+          "index": "not_analyzed",
+          "doc_values": true
+        },
+        "half_Interview_score": {
+          "type": "float",
+          "index": "not_analyzed",
+          "doc_values": true
+        },
+        "all_score": {
+          "type": "float",
+          "index": "not_analyzed",
+          "doc_values": true
+        },
+        "rank": {
+          "type": "integer",
+          "index": "not_analyzed",
+          "doc_values": true
+        },
+        "remark": {
+          "type": "string",
+          "index": "not_analyzed",
+          "doc_values": true
+        }
+      }
+    }
+  }
+}
