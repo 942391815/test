@@ -13,6 +13,7 @@ public class TestBeanFactoryProcessor implements BeanFactoryPostProcessor{
 	@Override
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
 		System.out.println(beanFactory);
+
 //		BeanDefinition bd = beanFactory.getBeanDefinition("personService");
 //		bd.setAttribute("commonService", Proxy.newProxyInstance(CommonService.class.getClassLoader(), CommonService.class.getInterfaces(), 
 //				new InvocationHandler() {
