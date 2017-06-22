@@ -13,7 +13,7 @@ import redis.clients.jedis.JedisShardInfo;
  *
  */
 public abstract class JedisShardInfoFactory {
-	public static final int PROT=3306;
+	public static final int PROT=6379;
 	/**
 	 * @param host redis连接 主机名
 	 * @param port redis连接端口
