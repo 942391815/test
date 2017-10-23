@@ -8,7 +8,7 @@
         <property name="proxyInterfaces">
             <value>com.test.java.testaop.PersonService</value>
         </property>
-        <property name="target" ref="personService">
+        <property name="target" ref="personService1">
         </property>
         <property name="interceptorNames">
             <list>
@@ -17,6 +17,8 @@
             </list>
         </property>
     </bean>
-    <bean id="personService" class="com.test.java.testaop.PersonServiceImpl"/>
+    <bean id="personService1" class="com.test.java.testaop.PersonServiceImpl"/>
+    <bean id="personService2" class="com.test.java.testaop.PersonServiceImpl"/>
+
     <bean id="interceptor" class="com.test.java.testaop.TestInterceptor"/>
 </beans>

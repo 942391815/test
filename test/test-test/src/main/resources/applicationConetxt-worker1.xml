@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd" default-autowire="byName">
+
+
+    <bean id="realtimeSaveRedisTask" class="com.jd.etms.monitor.worker.schedule.impl.RealtimeSaveTask" lazy-init="false"
+          depends-on="scheduleManagerFactory">
+        <property name="realtimeSaveStrategy" ref="realtimeSaveRedisStrategyImpl"/>
+        <property name="taskType" value="realtimeSaveRedisTask"/>
+        <property name="startDayOffset" value="0"/>
+        <property name="endDayOffset" value="1"/>
+        <property name="serviceList" >
+            <list>
+                <ref bean="popHomePickupServiceImpl" />
+                <ref bean="popPreappointSendServiceImpl"/>
+                <ref bean="popPrintServiceImpl" />
+                <ref bean="dmsInspectServiceImpl" />
+                <ref bean="dmsSendDestinationServiceImpl" />
+                <ref bean="dmsSendServiceImpl" />
+                <ref bean="dmsSortingServiceImpl" />
+                <ref bean="tmsInspectServiceImpl" />
+                <ref bean="tmsRecastServiceImpl" />
+                <ref bean="tmsReturnServiceImpl" />
+                <ref bean="tmsReturnServiceImpl" />
+                <ref bean="tmsSignInServiceImpl" />
+                <ref bean="tmsSelfUpServiceImpl"/>
+
+            </list>
+        </property>
+    </bean>
+
+    <!-- 邮件发送bean -->
+    <bean id="commonsEmailSender" class="com.jd.ql.mail.service.impl.CommonsEmailSender">
+        <property name="hostName" value="${zw.cmail.hostName}" />
+        <property name="charset" value="${zw.cmail.charset}" />
+        <property name="port" value="${zw.cmail.port}" />
+        <property name="ssLOnConnect" value="${zw.cmail.ssLOnConnect}" />
+        <property name="authenticator">
+            <ref bean="qlMailAuthenticator"/>
+        </property>
+        <property name="fromEmailAddress" value="${zw.cmail.fromEmailAddress}" />
+        <property name="fromEmailName" value="青龙监控" />
+    </bean>
+    <bean id="qlMailAuthenticator" class="org.apache.commons.mail.DefaultAuthenticator">
+        <constructor-arg value="${zw.cmail.username}"></constructor-arg>
+        <constructor-arg value="${zw.cmail.password}"></constructor-arg>
+    </bean>
+
+    <!-- yangguobin 外单自营待配送 -->
+    <bean id="waybillInTransitTask" class="com.jd.etms.monitor.worker.schedule.impl.WaybillInTransitTask"
+          lazy-init="false" depends-on="scheduleManagerFactory">
+        <property name="taskType" value="waybillInTransitTask" />
+        <property name="ownSign" value="BASE" />
+    </bean>
+
+    <!-- yangguobin 分拣到货量（箱数&原包） -->
+    <bean id="dmsReceiveTask" class="com.jd.etms.monitor.worker.schedule.impl.DmsReceiveTask"
+          lazy-init="false" depends-on="scheduleManagerFactory">
+        <property name="taskType" value="dmsReceiveTask" />
+        <property name="ownSign" value="BASE" />
+    </bean>
+
+
+    <!-- yangguobin 站转站  站转三方  -->
+    <bean id="tmsTransferSiteTask" class="com.jd.etms.monitor.worker.schedule.impl.TmsTransferSiteTask"
+          lazy-init="false" depends-on="scheduleManagerFactory">
+        <property name="taskType" value="tmsTransferSiteTask" />
+        <property name="ownSign" value="BASE" />
+    </bean>
+
+
+    <bean id="vosSendCarTask" class="com.jd.etms.monitor.worker.schedule.impl.VosSendCarTask"
+          lazy-init="false" depends-on="scheduleManagerFactory">
+        <property name="taskType" value="vosSendCarTask" />
+        <property name="ownSign" value="BASE" />
+    </bean>
+
+
+    <bean id="wmsOrderMonitorTask" class="com.jd.etms.monitor.worker.schedule.impl.WmsOrderMonitorTask"
+          lazy-init="false" depends-on="scheduleManagerFactory">
+        <property name="taskType" value="wmsOrderMonitorTask" />
+        <property name="ownSign" value="BASE" />
+    </bean>
+
+    <!-- 智网邮件服务worker
+        <bean id="dailyReportEmailTask" class="com.jd.etms.monitor.worker.schedule.impl.DailyReportEmailTask" lazy-init="false" depends-on="scheduleManagerFactory">
+        <property name="taskType" value="dailyReportEmailTask"/>
+        <property name="ownSign" value="BASE"/>
+    </bean>-->
+
+    <!-- 智网邮件服务worker
+    <bean id="distributionWholeDataEmailTask" class="com.jd.etms.monitor.worker.schedule.impl.DistributionWholeDataEmailTask" lazy-init="false" depends-on="scheduleManagerFactory">
+        <property name="taskType" value="distributionWholeDataEmailTask"/>
+        <property name="ownSign" value="BASE"/>
+    </bean>-->
+
+    <!-- 618威宇实时邮件调仓储任务 -->
+    <bean id="wmsWaybillOrderMonitorTask" class="com.jd.etms.monitor.worker.schedule.impl.WmsWaybillOrderMonitorTask" lazy-init="false"
+          depends-on="scheduleManagerFactory">
+        <property name="taskType" value="wmsWaybillOrderMonitorTask"/>
+        <property name="ownSign" value="BASE"/>
+    </bean>
+    <!-- 618威宇实时邮件-->
+    <bean id="realtimeDataCircularEmailTask" class="com.jd.etms.monitor.worker.schedule.impl.RealtimeDataCircularEmailTask" lazy-init="false" depends-on="scheduleManagerFactory">
+        <property name="taskType" value="realtimeDataCircularEmailTask"/>
+        <property name="ownSign" value="BASE"/>
+    </bean>
+
+    <!-- 运营数据存储  分钟级别-->
+    <bean id="realtimePlatformSaveTask" class="com.jd.etms.monitor.worker.schedule.impl.RealtimePlatformSaveTask" lazy-init="false"
+          depends-on="scheduleManagerFactory">
+        <property name="taskType" value="realtimePlatformSaveTask"/>
+        <property name="realtimeSaveStrategy" ref="realtimeSaveRedisStrategyImpl"/>
+        <property name="startDayOffset" value="0"/>
+        <property name="endDayOffset" value="1"/>
+        <property name="serviceList" >
+            <list>
+                <ref bean="popAmountPlatformImpl" />
+                <ref bean="popHomePickupDiffPlatformServiceImpl" />
+                <ref bean="tmsCrowdDiffPlatformServiceImpl" />
+                <ref bean="tmsInspectPlatformServiceImpl" />
+                <ref bean="tmsRecastServicePlatformImpl" />
+                <ref bean="tmsSelfUpPlatformServiceImpl" />
+                <ref bean="tmsSignDiffPlatformServiceImpl" />
+                <ref bean="tmsWaitingDeliveryDiffPlatformServiceImpl" />
+                <ref bean="wmsPackedPlatformImpl" />
+
+                <ref bean="tmsWaitingReceiveInspectDiffPlatformServiceImpl" />
+                <ref bean="tmsReturnDiffPlatformServiceImpl" />
+            </list>
+        </property>
+    </bean>
+
+    <!-- <bean id="realtimeSaveDBTask"  class="com.jd.etms.monitor.worker.schedule.impl.RealtimeSaveDBTask" lazy-init="false"
+          depends-on="scheduleManagerFactory">
+        <property name="realtimeSaveStrategy" ref="realtimeSaveDBStrategyImpl"/>
+        <property name="taskType" value="realtimeSaveDBTask"/>
+        <property name="startDayOffset" value="-1"/>
+        <property name="endDayOffset" value="0"/>
+         <property name="serviceList" >
+		    <list>
+		       <ref bean="popHomePickupServiceImpl" />
+		       <ref bean="popPreappointSendServiceImpl"/>
+		       <ref bean="popPrintServiceImpl" />
+		       <ref bean="dmsInspectServiceImpl" />
+		       <ref bean="dmsSendDestinationServiceImpl" />
+		       <ref bean="dmsSendServiceImpl" />
+		       <ref bean="dmsSortingServiceImpl" />
+		       <ref bean="tmsInspectServiceImpl" />
+		       <ref bean="tmsRecastServiceImpl" />
+
+		       <ref bean="tmsReturnServiceImpl" />
+		       <ref bean="tmsSignInServiceImpl" />
+		       <ref bean="tmsSelfUpServiceImpl"/>
+
+			   <ref bean="dmsReceiveSaveDBServiceImpl"/>
+		       <ref bean="vosSendCarBranchSaveDb"/>
+		       <ref bean="vosSendCarToSiteSaveDb"/>
+		       <ref bean="vosSendCarTrunkSaveDb"/>
+		       <ref bean="waybillInTransitOuterSaveDb"/>
+		       <ref bean="waybillInTransitSelfSaveDb"/>
+ 		       <ref bean="wmsOrderMonitorSaveDbServiceImpl"/>
+
+		       <ref bean="tmsSignAmountDiffSelfSaveDb"/>
+		       <ref bean="tmsSignAmountDiffOuterSaveDb"/>
+		       <ref bean="tmsSignAmountDiffCrowdSaveDb"/>
+		       <ref bean="popHomePickupDiffAmountSaveDb"/>
+		       <ref bean="dmsPopPickupDiffSaveDb"/>
+		       <ref bean="eclpAmountDiffSaveDb"/>
+		    </list>
+		</property>
+    </bean>
+-->
+
+    <bean id="scheduleConfigCenter" class="com.taobao.pamirs.schedule.ScheduleConfigCenterClientByDatabase">
+        <!--<property name="dataBaseType" value="oracle" />
+        <property name="dataSource" ref="tmsWorkerDatasource"/>-->
+        <property name="dataBaseType" value="mysql" />
+        <property name="dataSource" ref="outorderDatasource"/>
+        <property name="tableMap">
+            <map>
+                <entry key="pamirs_schedule_queue">
+                    <value>PAMIRS_SCHEDULE_QUEUE</value>
+                </entry>
+                <entry key="pamirs_schedule_server">
+                    <value>PAMIRS_SCHEDULE_SERVER</value>
+                </entry>
+                <entry key="pamirs_schedule_tasktype">
+                    <value>PAMIRS_SCHEDULE_TASKTYPE</value>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="scheduleManagerFactory" class="com.taobao.pamirs.schedule.TBScheduleManagerFactory" init-method="init" lazy-init="false">
+        <property name="scheduleConfigCenter">
+            <ref bean="scheduleConfigCenter" />
+        </property>
+    </bean>
+    <!-- 消化节奏数据存储  分钟级别-->
+    <bean id="tmsRetentionDataTask" class="com.jd.etms.monitor.worker.schedule.impl.TmsRetentionDataTask" lazy-init="false"
+          depends-on="scheduleManagerFactory">
+        <property name="taskType" value="tmsRetentionDataTask"/>
+        <property name="realtimeSaveStrategy" ref="realtimeSaveRedisStrategyImpl"/>
+        <property name="startDayOffset" value="0"/>
+        <property name="endDayOffset" value="1"/>
+        <property name="serviceList" >
+            <list>
+                <ref bean="tmsRetentionDataServiceImpl" />
+            </list>
+        </property>
+    </bean>
+    <!-- 核心指标播报-->
+    <bean id="coreIndexBroadcastTaskHour" class="com.jd.etms.monitor.worker.schedule.impl.CoreIndexBroadcastTask"
+          lazy-init="false"
+          depends-on="scheduleManagerFactory">
+        <property name="realtimeSaveStrategy" ref="realtimeSaveRedisStrategyImpl"/>
+        <property name="taskType" value="coreIndexBroadcastTaskHour"/>
+        <property name="startDayOffset" value="0"/>
+        <property name="endDayOffset" value="1"/>
+        <property name="serviceList">
+            <list>
+                <ref bean="coreIndexBroadcastServiceImpl"/>
+            </list>
+        </property>
+    </bean>
+</beans>
