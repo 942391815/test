@@ -111,5 +111,25 @@
             <artifactId>tbschedule</artifactId>
             <version>3.3.3.2</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javassist/javassist -->
+        <dependency>
+            <groupId>javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.10.0.GA</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.msgpack</groupId>
+            <artifactId>msgpack</artifactId>
+            <version>0.6.12</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.lmax</groupId>
+            <artifactId>disruptor</artifactId>
+            <version>3.3.6</version>
+        </dependency>
+
     </dependencies>
 </project>

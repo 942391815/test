@@ -32,7 +32,7 @@ public class PauseOrResumeScheduleTask extends java.util.TimerTask {
             Date current = new Date();
             CronExpression cexp = new CronExpression(this.cronTabExpress);
             Date nextTime = cexp.getNextValidTimeAfter(current);
-            System.out.println(DateFormatUtils.format(nextTime,"yyyy-MM-dd HH:mm:ss"));
+//            System.out.println(DateFormatUtils.format(nextTime,"yyyy-MM-dd HH:mm:ss"));
             if (this.type == TYPE_PAUSE) {
                 System.out.println("paupse_time"+DateFormatUtils.format(current,"yyyy-MM-dd HH:mm:ss"));
                 pause("到达终止时间,pause调度");
@@ -54,7 +54,7 @@ public class PauseOrResumeScheduleTask extends java.util.TimerTask {
     private void resume(String message) {
         System.out.println("start");
         try {
-            Thread.sleep(120000);
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
