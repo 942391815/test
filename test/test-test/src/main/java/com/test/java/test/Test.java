@@ -1,21 +1,17 @@
 package com.test.java.test;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * Created by qiaogu on 2017/8/7.
  */
 public class Test {
-    protected static class Children {
-        public static void test() {
-
-        }
-    }
-
-    public static Children getChildren() {
-        return new Children();
-    }
-
     public static void main(String[] args) {
-        Thread.currentThread().interrupt();
-        System.out.println(123123123);
+        ConcurrentHashMap<String,String> curr = new ConcurrentHashMap<>();
+        curr.put("aa","bb");
+        System.out.println(curr.putIfAbsent("aa","cc"));
+        System.out.println(curr.putIfAbsent("dd","cc"));
+        System.out.println(curr.putIfAbsent("dd","cc"));
+
     }
 }
