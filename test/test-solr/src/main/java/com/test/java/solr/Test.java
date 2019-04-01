@@ -1,97 +1,97 @@
-package com.test.java.solr;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import org.apache.solr.client.solrj.SolrQuery;
-import org.apache.solr.client.solrj.impl.HttpSolrServer;
-import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.common.SolrDocument;
-import org.apache.solr.common.SolrDocumentList;
-import org.apache.solr.common.SolrInputDocument;
-
-
-public class Test {
-	public static String url = "http://192.168.100.107:8888/solr/test";
-	public static void main(String[] args) throws Exception {
-		HttpSolrServer server = getServer(url);
-		addIndex(server);	
-//		queryIndex(server);
-//		deleteIndex(server);
-		
-	}
-	public static void deleteIndex(HttpSolrServer server) throws Exception{
-		server.deleteByQuery("*:*");
-		server.commit();
-	}
-	public static void addIndex(HttpSolrServer server)throws Exception{
-		Collection<SolrInputDocument> docs = new ArrayList<SolrInputDocument>();
-		
-//		SolrInputDocument doc1 = new SolrInputDocument();
-//		doc1.addField("id", UUID.randomUUID().toString().replaceAll("-",""));
-//		doc1.addField("comments", "JAVA²Ù×÷solrµÄÊµÏÖÆäÊµºÜ¼òµ¥£¬µ«ÊÇºÜ¶àÏ¸½ÚÒª×¢Òâ£¬ÔÚÊµ¼ÊµÄ¿ª·¢ÖÐ£¬ºÜ¶àÈËÏ²»¶×Ô¼º·â×°ÕâÐ©»ù´¡µÄ·½·¨ÒÔÒ»¸öÈ«ÐÂµÄ¡°ÃæÃ²¡±³öÏÖ£¬ÆäÊµ¶¼ÊÇÒ»»ØÊÂ£¬²Ù×÷ÊìÁË×ÔÈ»¾Í»áÏëµ½½«Ò»Ð©ÊµÏÖ¹¦ÄÜÓÃµ½µÄ·½·¨ÖØÐÂ·â×°£¬ÕâÒ²ÊÇ±à³Ì½ø½×µÄ±íÏÖ¡£");
-//		SolrInputDocument doc = new SolrInputDocument();
-//		doc.addField("id", UUID.randomUUID().toString().replaceAll("-",""));
-//		doc.addField("comments", " SolrJ¸²¸ÇÁËsolrµÄÈ«²¿¹¦ÄÜ£¬ÏÂÃæ½«×Ô¼ºÔÚÊµ¼Ê¿ª·¢ÖÐËùÊ¹ÓÃµÄ³ÌÐòÕ³Ìù³öÀ´²¢ÊÊµ±¼ÓÒÔ½âÊÍ£¬ÓÉÓÚ±¾ÈË±È½Ï²Ë£¬´úÂëÊéÐ´²»ÊÇÄÇÃ´µÄ¾«Á·£¬»¹Çë¼ûÁÂ¡£");
-//		for(int i=0;i<10;i++){
+//package com.test.java.solr;
+//
+//import java.util.ArrayList;
+//import java.util.Collection;
+//import java.util.List;
+//import java.util.Map;
+//import java.util.UUID;
+//
+//import org.apache.solr.client.solrj.SolrQuery;
+//import org.apache.solr.client.solrj.impl.HttpSolrServer;
+//import org.apache.solr.client.solrj.response.QueryResponse;
+//import org.apache.solr.common.SolrDocument;
+//import org.apache.solr.common.SolrDocumentList;
+//import org.apache.solr.common.SolrInputDocument;
+//
+//
+//public class Test {
+//	public static String url = "http://192.168.100.107:8888/solr/test";
+//	public static void main(String[] args) throws Exception {
+//		HttpSolrServer server = getServer(url);
+//		addIndex(server);
+////		queryIndex(server);
+////		deleteIndex(server);
+//
+//	}
+//	public static void deleteIndex(HttpSolrServer server) throws Exception{
+//		server.deleteByQuery("*:*");
+//		server.commit();
+//	}
+//	public static void addIndex(HttpSolrServer server)throws Exception{
+//		Collection<SolrInputDocument> docs = new ArrayList<SolrInputDocument>();
+//
+////		SolrInputDocument doc1 = new SolrInputDocument();
+////		doc1.addField("id", UUID.randomUUID().toString().replaceAll("-",""));
+////		doc1.addField("comments", "JAVAï¿½ï¿½ï¿½ï¿½solrï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½Êµï¿½Ü¼òµ¥£ï¿½ï¿½ï¿½ï¿½ÇºÜ¶ï¿½Ï¸ï¿½ï¿½Òª×¢ï¿½â£¬ï¿½ï¿½Êµï¿½ÊµÄ¿ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½Ü¶ï¿½ï¿½ï¿½Ï²ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½×°ï¿½ï¿½Ð©ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½È«ï¿½ÂµÄ¡ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Â£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½Í»ï¿½ï¿½ëµ½ï¿½ï¿½Ò»Ð©Êµï¿½Ö¹ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½×°ï¿½ï¿½ï¿½ï¿½Ò²ï¿½Ç±ï¿½Ì½ï¿½ï¿½×µÄ±ï¿½ï¿½Ö¡ï¿½");
+////		SolrInputDocument doc = new SolrInputDocument();
+////		doc.addField("id", UUID.randomUUID().toString().replaceAll("-",""));
+////		doc.addField("comments", " SolrJï¿½ï¿½ï¿½ï¿½ï¿½ï¿½solrï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½æ½«ï¿½Ô¼ï¿½ï¿½ï¿½Êµï¿½Ê¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ÃµÄ³ï¿½ï¿½ï¿½Õ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½Ú±ï¿½ï¿½Ë±È½Ï²Ë£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã´ï¿½Ä¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¡ï¿½");
+////		for(int i=0;i<10;i++){
+////			SolrInputDocument doc1 = new SolrInputDocument();
+////			doc1.addField("id", UUID.randomUUID().toString().replaceAll("-",""));
+////			doc1.addField("price", "100."+i);
+////			doc1.addField("weight", "90."+i);
+////			docs.add(doc1);
+////		}
+//
+//		List<Map<String, String>> datas = AddDatas.getDatas();
+////		Map<String, String> each = datas.get(0);
+//		for(Map<String,String> each:datas){
 //			SolrInputDocument doc1 = new SolrInputDocument();
 //			doc1.addField("id", UUID.randomUUID().toString().replaceAll("-",""));
-//			doc1.addField("price", "100."+i);
-//			doc1.addField("weight", "90."+i);
+//			doc1.addField("project_id", each.get("id"));
+//			doc1.addField("project_number",each.get("project_number"));
+//			doc1.addField("project_name",each.get("project_name"));
+//			doc1.addField("region",each.get("region"));
+//			doc1.addField("tender_names",each.get("tender_names"));
+//			doc1.addField("tender_ids",each.get("tender_ids"));
+//			doc1.addField("process_instance_id",each.get("process_instance_id"));
+//			doc1.addField("project_amount_rmb",each.get("project_amount_rmb"));
 //			docs.add(doc1);
 //		}
-		
-		List<Map<String, String>> datas = AddDatas.getDatas();
-//		Map<String, String> each = datas.get(0);
-		for(Map<String,String> each:datas){
-			SolrInputDocument doc1 = new SolrInputDocument();
-			doc1.addField("id", UUID.randomUUID().toString().replaceAll("-",""));
-			doc1.addField("project_id", each.get("id"));
-			doc1.addField("project_number",each.get("project_number"));
-			doc1.addField("project_name",each.get("project_name"));
-			doc1.addField("region",each.get("region"));
-			doc1.addField("tender_names",each.get("tender_names"));
-			doc1.addField("tender_ids",each.get("tender_ids"));
-			doc1.addField("process_instance_id",each.get("process_instance_id"));
-			doc1.addField("project_amount_rmb",each.get("project_amount_rmb"));
-			docs.add(doc1);
-		}
-//		docs.add(doc);
-		server.add(docs);
-		server.optimize();
-		server.commit();
-	}
-	
-	public static void queryIndex(HttpSolrServer server) throws Exception{
-		String q = "comments:JAVA";
-		SolrQuery sq = new SolrQuery(q);
-		sq.setParam("fl", "coments");  
-		sq.setHighlightSimplePre("<font color=\"red\">");   
-		sq.setHighlightSimplePost("</font>");
-		QueryResponse result = server.query(sq);
-		Map<String, Map<String, List<String>>> highlighting = result.getHighlighting();
-		
-		SolrDocumentList results = result.getResults();
-		for(int i=0;i<results.size();i++){
-			Map<String, List<String>> map = highlighting.get("id");
-			SolrDocument solrDocument = results.get(i);
-			String id = (String)solrDocument.getFieldValue("id");
-			solrDocument.setField("name", highlighting.get(id).get("name"));
-			System.out.println(solrDocument.getFieldValue("name"));
-		}
-	}
-	public static HttpSolrServer getServer(String url){
-		HttpSolrServer server = new HttpSolrServer(url);
-		server.setConnectionTimeout(1000);
-		server.setDefaultMaxConnectionsPerHost(100);
-		server.setSoTimeout(5000);  // socket read timeout  
-        server.setConnectionTimeout(5000);  
-        server.setDefaultMaxConnectionsPerHost(100);  
-        server.setMaxTotalConnections(100);  
-        server.setFollowRedirects(false); 
-        return server;
-	}
-}
+////		docs.add(doc);
+//		server.add(docs);
+//		server.optimize();
+//		server.commit();
+//	}
+//
+//	public static void queryIndex(HttpSolrServer server) throws Exception{
+//		String q = "comments:JAVA";
+//		SolrQuery sq = new SolrQuery(q);
+//		sq.setParam("fl", "coments");
+//		sq.setHighlightSimplePre("<font color=\"red\">");
+//		sq.setHighlightSimplePost("</font>");
+//		QueryResponse result = server.query(sq);
+//		Map<String, Map<String, List<String>>> highlighting = result.getHighlighting();
+//
+//		SolrDocumentList results = result.getResults();
+//		for(int i=0;i<results.size();i++){
+//			Map<String, List<String>> map = highlighting.get("id");
+//			SolrDocument solrDocument = results.get(i);
+//			String id = (String)solrDocument.getFieldValue("id");
+//			solrDocument.setField("name", highlighting.get(id).get("name"));
+//			System.out.println(solrDocument.getFieldValue("name"));
+//		}
+//	}
+//	public static HttpSolrServer getServer(String url){
+//		HttpSolrServer server = new HttpSolrServer(url);
+//		server.setConnectionTimeout(1000);
+//		server.setDefaultMaxConnectionsPerHost(100);
+//		server.setSoTimeout(5000);  // socket read timeout
+//        server.setConnectionTimeout(5000);
+//        server.setDefaultMaxConnectionsPerHost(100);
+//        server.setMaxTotalConnections(100);
+//        server.setFollowRedirects(false);
+//        return server;
+//	}
+//}
