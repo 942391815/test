@@ -1,18 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
     <parent>
         <groupId>com.test.java</groupId>
         <artifactId>test</artifactId>
@@ -106,11 +94,11 @@
             <artifactId>httpclient</artifactId>
             <version>4.3.6</version>
         </dependency>
-        <dependency>
-            <groupId>com.taobao.pamirs.schedule</groupId>
-            <artifactId>tbschedule</artifactId>
-            <version>3.3.3.2</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>com.taobao.pamirs.schedule</groupId>-->
+        <!--<artifactId>tbschedule</artifactId>-->
+        <!--<version>3.3.3.2</version>-->
+        <!--</dependency>-->
 
         <!-- https://mvnrepository.com/artifact/javassist/javassist -->
         <dependency>
@@ -129,6 +117,16 @@
             <groupId>com.lmax</groupId>
             <artifactId>disruptor</artifactId>
             <version>3.3.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.7</version>
         </dependency>
 
     </dependencies>
