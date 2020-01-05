@@ -1,5 +1,6 @@
 package com.test.java.test;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.StopWatch;
 
 import java.time.LocalDate;
@@ -7,7 +8,10 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -29,14 +33,14 @@ public class Test {
 //        System.out.println(jobStartTime);
 //        System.out.println(dateTimeFormater.format(jobStartTime));
 //        int count = pushJobItemDAO.countJobStartTime(pushJob.getId(), dateTimeFormater.format(of));
-
-        StopWatch stopWatch = new StopWatch("定时任务");
-        stopWatch.start("起床 ");
-        Thread.sleep(1000);
-        stopWatch.stop();
-        stopWatch.start("刷牙 ");
-        Thread.sleep(1000);
-        stopWatch.stop();
-        System.out.println(stopWatch.getLastTaskInfo());
+        Optional<Object> o = Optional.ofNullable("123123");
+        if(o.isPresent()){
+            System.out.println("123213");
+        }
+        List<Integer> list = new ArrayList<Integer>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        System.out.println(StringUtils.join(list,","));
     }
 }

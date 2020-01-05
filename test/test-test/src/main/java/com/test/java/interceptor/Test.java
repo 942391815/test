@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 public class Test {
 	public static void main(String[] args) {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		Test bean = context.getBean(Test.class);
-		bean.test("12","xxxxxxxxx");
+//		Test bean = context.getBean(Test.class);
+//		bean.test("12","xxxxxxxxx");
+		Validation bean = context.getBean(Validation.class);
+		bean.execute(1212);
 	}
 	
 	@Validator
