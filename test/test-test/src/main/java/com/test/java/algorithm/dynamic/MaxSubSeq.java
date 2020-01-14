@@ -10,25 +10,21 @@ public class MaxSubSeq {
         System.out.println(getLargestLen(arr));
     }
 
-    private static int getLargestLen(int[] array) {
-        int[] max = new int[array.length];
-        for (int i = 0; i < array.length; i++) {
-            max[i] = 1;
-        }
-
-        for (int i = 1; i < array.length; i++) {
-            for (int j = 0; j < i; j++) {
-                if (array[i] > array[j] && max[i] < max[j] + 1) {
-                    max[i] = max[j] + 1;
+    private static int getLargestLen(int[] nums) {
+        int dp[] = new int[nums.length];
+        dp[0] = 1;
+        int max = dp[0];
+        for (int i = 0; i < nums.length; i++) {
+            dp[i] = 1;
+            for (int j = 0; j <= i - 1; j++) {
+                if (nums[i] > nums[j] && dp[j] + 1 > dp[i]) {
+                    dp[i] = dp[j] + 1;
                 }
             }
-        }
-        int maxLen = 0;
-        for (int i = 0; i < array.length; i++) {
-            if (maxLen < max[i]) {
-                maxLen = max[i];
+            if (max < dp[i]) {
+                max = dp[i];
             }
         }
-        return maxLen;
+        return max;
     }
 }
