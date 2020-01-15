@@ -1,6 +1,6 @@
 package com.test.java.algorithm.tree;
 
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Created by Micheal on 2020/1/12.
@@ -19,7 +19,27 @@ public class Node {
 //        middle(tree);
 //        preOrder(tree);
 //        midOrder(tree);
-        afterOrder(tree);
+//        afterOrder(tree);
+        levelOrder(tree);
+    }
+
+    public static void levelOrder(Node root) {
+        if (Objects.isNull(root)) {
+            return;
+        }
+        Node cur = root;
+        Queue<Node> nodeList = new LinkedList<>();
+        nodeList.offer(cur);
+        while (!nodeList.isEmpty()) {
+            Node poll = nodeList.poll();
+            System.out.println(poll.value);
+            if (poll.left != null) {
+                nodeList.offer(poll.left);
+            }
+            if (poll.right != null) {
+                nodeList.offer(poll.right);
+            }
+        }
     }
 
     public static void level(Node node) {
