@@ -2,6 +2,7 @@ package com.test.java.algorithm.list;
 
 /**
  * Created by micheal on 2020/1/7.
+ * 单链表反转
  */
 public class ReverseNode {
     public static void main(String[] args) {
@@ -16,10 +17,6 @@ public class ReverseNode {
 //        printNode(newNode);
         Node node = reverseNodeWithRecrive(one);
         printNode(node);
-    }
-
-    public static void level(Node node) {
-
     }
 
     public static Node reverseNodeWithRecrive(Node head) {
