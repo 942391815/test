@@ -10,4 +10,24 @@ public class Node {
     public Node(int value) {
         this.value = value;
     }
+
+    public static void main(String[] args) {
+
+    }
+
+    public static Node reverse(Node node) {
+        Node pre = null;
+        while (node != null) {
+            Node next = node.next;
+            node.next = pre;
+            pre = node;
+            node = next;
+
+//            next = node.next;
+//            node.next = pre;
+//            pre = node;
+//            node = next;
+        }
+        return node;
+    }
 }
