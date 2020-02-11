@@ -11,11 +11,51 @@ import java.util.*;
 public class TestTree {
     public static void main(String[] args) {
         Node tree = getTree();
+        mirrorV1(tree);
 //        int level = maxLevel(tree);
-//        System.out.println(level);
+//        System.out.println(tree);
         List<List<Integer>> lists = levelOrder(tree);
         for (List<Integer> each : lists) {
             System.out.println(each);
+        }
+    }
+
+    public static void mirrorV1(Node root) {
+        if (root == null) {
+            return;
+        }
+        if (root.left == null && root.right == null) {
+            return;
+        }
+        Node temp = null;
+        temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+        if (root.left != null) {
+            mirrorV1(root.left);
+        }
+        if (root.right != null) {
+            mirrorV1(root.right);
+        }
+    }
+
+
+    public static void mirror(Node root) {
+        if (root == null) {
+            return;
+        }
+        if (root.left == null && root.right == null) {
+            return;
+        }
+        Node temp = null;
+        temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+        if (root.left != null) {
+            mirror(root.left);
+        }
+        if (root.right != null) {
+            mirror(root.right);
         }
     }
 
@@ -123,17 +163,20 @@ public class TestTree {
         Node four = new Node();
         Node five = new Node();
         Node six = new Node();
+        Node seven = new Node();
         one.value = 1;
         two.value = 2;
         three.value = 3;
         four.value = 4;
         five.value = 5;
         six.value = 6;
+        seven.value = 10;
         one.left = two;
         one.right = three;
         two.left = four;
         two.right = five;
         three.right = six;
+        three.left = seven;
         return one;
     }
 }
