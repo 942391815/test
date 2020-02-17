@@ -15,7 +15,7 @@ public class Node {
 //        middleRec(tree);
 //        firstRec(tree);
 //        lastRec(tree);
-//        first(tree);
+        first(tree);
 //        middle(tree);
 //        preOrder(tree);
 //        midOrder(tree);
