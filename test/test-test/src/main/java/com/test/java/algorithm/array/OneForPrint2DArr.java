@@ -8,10 +8,46 @@ import java.util.List;
  */
 public class OneForPrint2DArr {
     public static void main(String[] args) throws Exception {
-        int[][] array = {{1, 2, 3}, {4, 5, 6}};
-        List<Integer> list = printMatrix(array);
-        System.out.println(list);
+        int[][] array = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        printArray(array, 3, 3);
+//        List<Integer> list = printMatrix(array);
+//        System.out.println(list);
     }
+
+    public static void printArray(int[][] array, int row, int column) {
+        if (array == null || row <= 0 || column <= 0) {
+            return;
+        }
+        int start = 0;
+        while (row > start * 2 && column > start * 2) {
+            printEach(array, row, column, start);
+            ++start;
+        }
+    }
+
+    public static void printEach(int[][] array, int row, int column, int start) {
+        int endX = column - start - 1;
+        int endY = row - start - 1;
+        for (int i = start; i <= endX; ++i) {
+            System.out.println(array[start][i]);
+        }
+        if (start < endY) {
+            for (int i = start + 1; i <= endY; ++i) {
+                System.out.println(array[i][endX]);
+            }
+        }
+        if (start < endX && start < endY) {
+            for (int i = endX - 1; i >= start; --i) {
+                System.out.println(array[endY][i]);
+            }
+        }
+        if (start < endX && start < endY - 1) {
+            for (int i = endY - 1; i >= start + 1; --i) {
+                System.out.println(array[i][start]);
+            }
+        }
+    }
+
 
     public static List<Integer> print(int[][] array) {
         List<Integer> list = new ArrayList<>();
