@@ -12,7 +12,24 @@ public class Node {
     }
 
     public static void main(String[] args) {
+        Node one = new Node(1);
+        Node two = new Node(2);
+        Node three = new Node(3);
+        one.next = two;
+        two.next = three;
+        printReverse(one);
 
+    }
+
+    public static void printReverse(Node node) {
+        if (node != null) {
+            Node next = node.next;
+            if (next != null) {
+                printReverse(next);
+            }
+            System.out.println(node.value);
+        }
+        return;
     }
 
     public static Node reverse(Node node) {
