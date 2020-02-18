@@ -21,28 +21,28 @@ public class OneForPrint2DArr {
         int start = 0;
         while (row > start * 2 && column > start * 2) {
             printEach(array, row, column, start);
-            ++start;
+            start++;
         }
     }
 
     public static void printEach(int[][] array, int row, int column, int start) {
         int endX = column - start - 1;
         int endY = row - start - 1;
-        for (int i = start; i <= endX; ++i) {
+        for (int i = start; i <= endX; i++) {
             System.out.println(array[start][i]);
         }
         if (start < endY) {
-            for (int i = start + 1; i <= endY; ++i) {
+            for (int i = start + 1; i <= endY; i++) {
                 System.out.println(array[i][endX]);
             }
         }
         if (start < endX && start < endY) {
-            for (int i = endX - 1; i >= start; --i) {
+            for (int i = endX - 1; i >= start; i--) {
                 System.out.println(array[endY][i]);
             }
         }
         if (start < endX && start < endY - 1) {
-            for (int i = endY - 1; i >= start + 1; --i) {
+            for (int i = endY - 1; i >= start + 1; i--) {
                 System.out.println(array[i][start]);
             }
         }
