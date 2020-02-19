@@ -5,10 +5,14 @@ package com.test.java.algorithm.sort;
  */
 public class QuickSort {
     public static void main(String[] args) {
-        int array [] = {17,2,5,1,6,7,9,0};
-        quickSort(array,0,array.length-1);
+        int array[] = {17, 2, 5, 1, 6, 7, 9, 0};
+        quickSort(array, 0, array.length - 1);
+        for (int each : array) {
+            System.out.print(each + "\t");
+        }
         System.out.println(array);
     }
+
     private static void quickSort(int[] arr, int leftIndex, int rightIndex) {
         if (leftIndex >= rightIndex) {
             return;
