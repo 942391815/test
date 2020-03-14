@@ -1,5 +1,9 @@
 package com.test.java.algorithm.list;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Created by micheal on 2020/1/7.
  * 反转部分单链表
@@ -27,14 +31,30 @@ public class ReversePartNode {
 //        for (int i = 0; i < ints.length; i++) {
 //            System.out.println(ints[i]);
 //        }
-        int[] nums1 = {1, 2, 3, 0, 0, 0};
-        int m = 3;
-        int[] nums2 = {2, 5, 6};
-        int n = 3;
-        merge(nums1, m, nums2, n);
-        System.out.println(nums1);
+//        int[] nums1 = {1, 2, 3, 0, 0, 0};
+//        int m = 3;
+//        int[] nums2 = {2, 5, 6};
+//        int n = 3;
+//        merge(nums1, m, nums2, n);
+//        System.out.println(nums1);
+        int num[] = {12,22,1,9,20};
+        System.out.println(largestNumber(num));
+    }
 
+    public static String largestNumber(int[] nums) {
+        StringBuilder sb = new StringBuilder();
+        List<String> collect = Arrays.stream(nums)
+                .boxed()
+                .map(Object::toString)
+                .sorted((o1, o2) -> (o2 + o1).compareTo(o1 + o2))
+                .collect(Collectors.toList());
+        for (String s :collect) {
+            sb.append(s);
+        }
 
+        String result = sb.toString();
+
+        return result.startsWith("0") ? "0" : result;
     }
 
     public static void merge(int[] nums1, int m, int[] nums2, int n) {
