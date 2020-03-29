@@ -1,8 +1,11 @@
 package com.test.java.algorithm.dynamic;
 
 
+import com.test.java.algorithm.list.Node;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Created by Micheal on 2020/3/10.
@@ -21,6 +24,63 @@ public class CountCount {
 //        int res = maxValueOfGifts(data);
         int res = maxValueV1(data);
         System.out.println(res);
+        System.out.println(maxValueV2(data));
+    }
+
+    public static void print(int level, Stack<Node> stack) {
+        if (stack.isEmpty()) {
+            return;
+        }
+        System.out.print(level);
+        Stack<Node> child = new Stack<>();
+        while (!stack.isEmpty()) {
+            Node node = stack.pop();
+            if (node != null) {
+                System.out.print(node.value);
+                if (level % 2 != 0) {
+                    if (node.left != null) {
+                        child.push(node.left);
+                    }
+                    if (node.right != null) {
+                        child.push(node.right);
+                    }
+                } else {
+                    if (node.right != null) {
+                        child.push(node.right);
+                    }
+                    if (node.left != null) {
+                        child.push(node.left);
+                    }
+                }
+            }
+        }
+        System.out.println();
+        level++;
+        print(level, child);
+    }
+
+    public static int maxValueV2(int[][] values) {
+        if (values == null || values.length == 0) {
+            return 0;
+        }
+        int row = values.length;
+        int col = values[0].length;
+        int temp[][] = new int[row][col];
+        temp[0][0] = 0;
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                int left = 0;
+                int up = 0;
+                if (i > 0) {
+                    up = temp[i - 1][j];
+                }
+                if (j > 0) {
+                    left = temp[i][j - 1];
+                }
+                temp[i][j] = Math.max(up, left) + values[i][j];
+            }
+        }
+        return temp[row - 1][col - 1];
     }
 
     public static int maxValueV1(int[][] values) {

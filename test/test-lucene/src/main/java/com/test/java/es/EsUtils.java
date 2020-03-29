@@ -15,7 +15,7 @@ public class EsUtils {
         //测试平台
         TransportClient transportClient = null;
         try {
-            transportClient = new TransportClient().addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("127.0.0.1"), 9300));
+            transportClient = new TransportClient().addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("192.168.0.103"), 9300));
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }

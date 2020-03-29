@@ -6,6 +6,8 @@ package com.test.java.algorithm.list;
 public class Node {
     public int value;
     public Node next;
+    public Node left;
+    public Node right;
 
     public Node(int value) {
         this.value = value;

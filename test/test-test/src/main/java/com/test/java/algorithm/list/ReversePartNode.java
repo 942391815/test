@@ -1,5 +1,6 @@
 package com.test.java.algorithm.list;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,19 +11,20 @@ import java.util.stream.Collectors;
  */
 public class ReversePartNode {
     public static void main(String[] args) {
-//        Node one = new Node(1);
-//        Node two = new Node(2);
-//        Node three = new Node(3);
-//        Node four = new Node(4);
-//        Node five = new Node(5);
-//
-//        one.next = two;
-//        two.next = three;
-//        three.next = four;
-//        four.next = five;
+        Node one = new Node(1);
+        Node two = new Node(2);
+        Node three = new Node(3);
+        Node four = new Node(4);
+        Node five = new Node(5);
+
+        one.next = two;
+        two.next = three;
+        three.next = four;
+        four.next = five;
 //        //1->2->3->4->5
 //        //1->4->3->2->5
-//        reverseNode(one, 2, 4);
+        Node node = reverseNode(one, 2, 4);
+        System.out.println(node);
 //        printNode(one);
 //        int array[] = {9,9};
 ////        removeElement(array,3);
@@ -37,8 +39,61 @@ public class ReversePartNode {
 //        int n = 3;
 //        merge(nums1, m, nums2, n);
 //        System.out.println(nums1);
-        int num[] = {12,22,1,9,20};
-        System.out.println(largestNumber(num));
+//        int num[] = {12, 22, 1, 9, 20};
+//        System.out.println(largestNumber(num));
+        int num[] = {1, 3, -1, -3, 5, 3, 6, 7};
+        int[] ints = maxSlidingWindowV1(num, 3);
+        System.out.println(ints);
+    }
+
+    public static int[] maxSlidingWindowV1(int[] nums, int k) {
+        if (nums == null || nums.length == 0 || k == 0) {
+            return new int[0];
+        }
+        int len = nums.length;
+        int result[] = new int[len - k + 1];
+        for (int i = k - 1, j = 0; i < nums.length; i++, j++) {
+            int each = getMaxValue(nums, i - k + 1, i);
+            result[j] = each;
+        }
+        return result;
+    }
+
+    public static int getMaxValue(int nums[], int start, int end) {
+        int max = nums[start];
+        for (int i = start + 1; i <= end; i++) {
+            max = Math.max(max, nums[i]);
+        }
+        return max;
+    }
+
+    public static int[] maxSlidingWindow(int[] nums, int k) {
+        if (nums == null || nums.length == 0) {
+            return null;
+        }
+        List<Integer> list = new ArrayList();
+        int len = nums.length;
+        int result[] = new int[len - k + 1];
+        for (int i = 0; i < k; i++) {
+            list.add(nums[i]);
+        }
+        result[0] = getMax(list);
+        int max = result[0];
+        for (int i = k, j = 1; i < len; i++, j++) {
+            Integer remove = list.remove(0);
+            list.add(nums[i]);
+            if (remove.equals(max) || nums[i] > max) {
+                max = getMax(list);
+            }
+            result[j] = max;
+        }
+        return result;
+    }
+
+    public static int getMax(List<Integer> list) {
+        List<Integer> result = new ArrayList<>(list);
+        List<Integer> collect = result.stream().sorted((o1, o2) -> o2.compareTo(o1)).collect(Collectors.toList());
+        return collect.get(0);
     }
 
     public static String largestNumber(int[] nums) {
@@ -48,7 +103,7 @@ public class ReversePartNode {
                 .map(Object::toString)
                 .sorted((o1, o2) -> (o2 + o1).compareTo(o1 + o2))
                 .collect(Collectors.toList());
-        for (String s :collect) {
+        for (String s : collect) {
             sb.append(s);
         }
 
