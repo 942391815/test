@@ -6,8 +6,33 @@ package com.test.java.algorithm.str;
  */
 public class SymmetricStr {
     public static void main(String[] args) {
-        String str = "123";
-        System.out.println(isSymmetric(str));
+        String str = "1233211";
+//        System.out.println(isSymmetric(str));
+        System.out.println(getMaxSubSymmetric(str));
+    }
+
+    public static String getMaxSubSymmetric(String str) {
+        if (str == null || str.length() == 0) {
+            return "";
+        }
+        int len = str.length();
+        int max = 0;
+        int maxStr = 0;
+        int maxEnd = 0;
+        boolean dp[][] = new boolean[len][len];
+        for (int r = 1; r < len; r++) {
+            for (int l = 0; l < r; l++) {
+                if (str.charAt(r) == str.charAt(l) && (r - l <= 2 || dp[l + 1][r - 1])) {
+                    dp[l][r] = true;
+                    if (r - l + 1 > max) {
+                        max = r - l + 1;
+                        maxStr = l;
+                        maxEnd = r;
+                    }
+                }
+            }
+        }
+        return str.substring(maxStr, maxEnd + 1);
     }
 
     public static boolean isSymmetric(String str) {
