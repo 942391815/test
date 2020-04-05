@@ -6,9 +6,24 @@ package com.test.java.algorithm.str;
  */
 public class SymmetricStr {
     public static void main(String[] args) {
-        String str = "1233211";
+//        String str = "1233211";
 //        System.out.println(isSymmetric(str));
-        System.out.println(getMaxSubSymmetric(str));
+//        System.out.println(getMaxSubSymmetric(str));
+        int nums[] = {1, 2, 3, 1};
+        System.out.println(rob(nums));
+    }
+
+    public static int rob(int[] nums) {
+        int len = nums.length;
+        if (len == 0)
+            return 0;
+        int[] dp = new int[len + 1];
+        dp[0] = 0;
+        dp[1] = nums[0];
+        for (int i = 2; i <= len; i++) {
+            dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i - 1]);
+        }
+        return dp[len];
     }
 
     public static String getMaxSubSymmetric(String str) {
