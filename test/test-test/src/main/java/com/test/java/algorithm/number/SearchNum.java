@@ -12,12 +12,47 @@ public class SearchNum {
 //        int temp[] = {7, 6, 4, 3, 1};
 //        System.out.println(maxProfit(temp));
 //        System.out.println(getMax(temp));
-        int array[] = {1, 3, -1, -3, 5, 3, 6, 7};
-        int k = 3;
+//        int array[] = {1, 3, -1, -3, 5, 3, 6, 7};
+//        int k = 3;
         int result[] = {3, 3, 5, 5, 6, 7};
-        int[] tempArray = maxSlidingWindow(result, 3);
-        for (int each : tempArray) {
+        moveV1(result, 1);
+//        int[] tempArray = maxSlidingWindow(result, 3);
+//        for (int each : tempArray) {
+//            System.out.println(each);
+//        }
+        for (int each : result) {
             System.out.println(each);
+        }
+    }
+
+    public static void moveV1(int array[], int step) {
+        int reverse = step % array.length;
+        reverse(array, 0, array.length - 1);
+        reverse(array, 0, reverse - 1);
+        reverse(array, reverse, array.length - 1);
+    }
+
+    public static void reverse(int array[], int start, int end) {
+        while (start < end) {
+            int temp = array[start];
+            array[start] = array[end];
+            array[end] = temp;
+            start++;
+            end--;
+        }
+    }
+
+    public static void move(int array[], int step) {
+        if (array == null || array.length == 0) {
+            return;
+        }
+        int len = array.length;
+        int temp[] = new int[len];
+        for (int i = 0; i < array.length; i++) {
+            temp[(i + step) % len] = array[i];
+        }
+        for (int i = 0; i < len; i++) {
+            array[i] = temp[i];
         }
     }
 
