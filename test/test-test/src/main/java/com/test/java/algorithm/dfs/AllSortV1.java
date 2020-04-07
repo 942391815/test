@@ -11,11 +11,11 @@ import java.util.Set;
 public class AllSortV1 {
     public static void main(String[] args) {
 //        permulation("abc");
-//        String[] result = permulationV1("abc");
-//        for (String each : result) {
-//            System.out.println(each);
-//        }
-        System.out.println(nthUglyNumber(1500));
+        String[] result = permulationV1("abc");
+        for (String each : result) {
+            System.out.println(each);
+        }
+//        System.out.println(nthUglyNumber(1500));
     }
 
     public static int nthUglyNumber(int num) {
