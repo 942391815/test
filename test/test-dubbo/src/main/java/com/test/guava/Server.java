@@ -7,8 +7,9 @@ public class Server {
 	        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext( 
 	                new String[]{"server.xml" }); 
 	        context.start();
-	        System. out.println("Press any key to exit." ); 
-	        System. in.read(); 
+	        System. out.println("Press any key to exit." );
+		   System. out.println("Press any key to exit.111" );
+		   System. in.read();
 	    }
 
 }
