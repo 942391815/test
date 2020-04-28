@@ -10,7 +10,8 @@ import org.redisson.core.RLock;
  */
 public class Test {
     public static void main(String[] args) {
-        Config config = null;
+        Config config = new Config();
+        config.useSingleServer().setAddress("localhost:6379");
         RedissonClient client = Redisson.create(config);
         RLock lock = client.getLock("");
         lock.lock();

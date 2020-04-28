@@ -1,4 +1,4 @@
-package java.com.test.guava;
+package com.test.guava;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

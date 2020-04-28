@@ -1,4 +1,4 @@
-package java.com.test.guava;
+package com.test.guava;
 
 public class ProcessDataImpl implements IProcessData {
     @Override
