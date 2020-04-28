@@ -5,6 +5,7 @@ public class ProcessDataImpl implements IProcessData {
     public String deal(String data) {
           try {
              Thread. sleep(1000);
+              System.out.println(121);
          } catch (InterruptedException e) {
              e.printStackTrace();
          }
