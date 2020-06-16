@@ -1,66 +1,66 @@
-package com.test.java;
-
-import io.netty.bootstrap.ServerBootstrap;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelHandlerAdapter;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
-import io.netty.channel.socket.nio.NioServerSocketChannel;
-
-import java.util.Date;
-
-/**
- * Netty4 ·þÎñ¶Ë´úÂë
- *
- * @author lihzh
- * @date 2013Äê11ÔÂ15ÈÕ ÏÂÎç1:10:06
- * @website http://www.coderli.com
- */
-public class HelloWorldServer {
-      public static void main(String[] args) {
-           // EventLoop ´úÌæÔ­À´µÄ ChannelFactory
-          EventLoopGroup bossGroup = new NioEventLoopGroup();
-          EventLoopGroup workerGroup = new NioEventLoopGroup();
-           try {
-               ServerBootstrap serverBootstrap = new ServerBootstrap();
-               // server¶Ë²ÉÓÃ¼ò½àµÄÁ¬Ð´·½Ê½£¬client¶Ë²ÅÓÃ·Ö¶ÎÆÕÍ¨Ð´·¨¡£
-              serverBootstrap.group(bossGroup, workerGroup)
-                        .channel(NioServerSocketChannel.class)
-                        .childHandler( new ChannelInitializer<SocketChannel>() {
-                              @Override
-                              public void initChannel(SocketChannel ch)
-                                       throws Exception {
-                                  ch.pipeline().addLast( new HelloServerHandler());
-                             }
-                        }).option(ChannelOption.SO_BACKLOG,1024);
-
-              ChannelFuture f = serverBootstrap.bind(8000).sync();
-              f.channel().closeFuture().sync();
-          } catch (InterruptedException e) {
-          } finally {
-              workerGroup.shutdownGracefully();
-              bossGroup.shutdownGracefully();
-          }
-     }
-
-      private static class HelloServerHandler extends
-      ChannelHandlerAdapter {
-		@Override
-		public void channelRead(ChannelHandlerContext ctx, Object msg)
-				throws Exception {
-			@SuppressWarnings("deprecation")
-			ByteBuf resp = Unpooled.copiedBuffer(new Date().toLocaleString().getBytes());
-			ctx.write(resp);
-		}
-		public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-			ctx.flush();
-		}
-     }
-
-}
+//package com.test.java;
+//
+//import io.netty.bootstrap.ServerBootstrap;
+//import io.netty.buffer.ByteBuf;
+//import io.netty.buffer.Unpooled;
+//import io.netty.channel.ChannelFuture;
+//import io.netty.channel.ChannelHandlerAdapter;
+//import io.netty.channel.ChannelHandlerContext;
+//import io.netty.channel.ChannelInitializer;
+//import io.netty.channel.ChannelOption;
+//import io.netty.channel.EventLoopGroup;
+//import io.netty.channel.nio.NioEventLoopGroup;
+//import io.netty.channel.socket.SocketChannel;
+//import io.netty.channel.socket.nio.NioServerSocketChannel;
+//
+//import java.util.Date;
+//
+///**
+// * Netty4 ï¿½ï¿½ï¿½ï¿½Ë´ï¿½ï¿½ï¿½
+// *
+// * @author lihzh
+// * @date 2013ï¿½ï¿½11ï¿½ï¿½15ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½1:10:06
+// * @website http://www.coderli.com
+// */
+//public class HelloWorldServer {
+//      public static void main(String[] args) {
+//           // EventLoop ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ ChannelFactory
+//          EventLoopGroup bossGroup = new NioEventLoopGroup();
+//          EventLoopGroup workerGroup = new NioEventLoopGroup();
+//           try {
+//               ServerBootstrap serverBootstrap = new ServerBootstrap();
+//               // serverï¿½Ë²ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½Ê½ï¿½ï¿½clientï¿½Ë²ï¿½ï¿½Ã·Ö¶ï¿½ï¿½ï¿½Í¨Ð´ï¿½ï¿½ï¿½ï¿½
+//              serverBootstrap.group(bossGroup, workerGroup)
+//                        .channel(NioServerSocketChannel.class)
+//                        .childHandler( new ChannelInitializer<SocketChannel>() {
+//                              @Override
+//                              public void initChannel(SocketChannel ch)
+//                                       throws Exception {
+//                                  ch.pipeline().addLast( new HelloServerHandler());
+//                             }
+//                        }).option(ChannelOption.SO_BACKLOG,1024);
+//
+//              ChannelFuture f = serverBootstrap.bind(8000).sync();
+//              f.channel().closeFuture().sync();
+//          } catch (InterruptedException e) {
+//          } finally {
+//              workerGroup.shutdownGracefully();
+//              bossGroup.shutdownGracefully();
+//          }
+//     }
+//
+//      private static class HelloServerHandler extends
+//      ChannelHandlerAdapter {
+//		@Override
+//		public void channelRead(ChannelHandlerContext ctx, Object msg)
+//				throws Exception {
+//			@SuppressWarnings("deprecation")
+//			ByteBuf resp = Unpooled.copiedBuffer(new Date().toLocaleString().getBytes());
+//			ctx.write(resp);
+//		}
+//		public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+//			ctx.flush();
+//		}
+//     }
+//
+//}
