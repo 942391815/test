@@ -11,12 +11,12 @@
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
-			<version>3.3.0</version>
+			<version>3.4.6</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.30</version>
+			<version>8.0.11</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
@@ -33,11 +33,11 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.9</version>
 		</dependency>
-		<dependency>
-			<groupId>tk.mybatis</groupId>
-			<artifactId>mapper</artifactId>
-			<version>3.3.7</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>tk.mybatis</groupId>-->
+			<!--<artifactId>mapper</artifactId>-->
+			<!--<version>3.3.7</version>-->
+		<!--</dependency>-->
 		<dependency>
 			<groupId>net.sf.json-lib</groupId>
 			<artifactId>json-lib</artifactId>

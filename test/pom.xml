@@ -4,6 +4,12 @@
     <groupId>com.test.java</groupId>
     <artifactId>test</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.1.3.RELEASE</version>
+        <relativePath></relativePath>
+    </parent>
     <packaging>pom</packaging>
     <modules>
         <module>test-util</module>
@@ -18,6 +24,8 @@
         <module>test-mybaits</module>
         <module>test-lucene</module>
         <module>test-spring</module>
+        <module>../test-drools</module>
+        <module>test-drools</module>
     </modules>
     <build>
         <plugins>
