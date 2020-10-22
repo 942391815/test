@@ -4,7 +4,7 @@ package com.test.java.algorithm.offer;
  * Created by Micheal on 2020/10/20.
  */
 public class ListNodeUtil {
-    public static ListNode initListNode() {
+    public static ListNode initListNodeOne() {
         ListNode one = new ListNode(1);
         ListNode two = new ListNode(2);
         ListNode three = new ListNode(3);
@@ -12,6 +12,15 @@ public class ListNodeUtil {
         one.next = two;
         two.next = three;
         three.next = four;
+        return one;
+    }
+
+    public static ListNode initListNodeTwo() {
+        ListNode one = new ListNode(0);
+        ListNode two = new ListNode(4);
+        ListNode three = new ListNode(10);
+        one.next = two;
+        two.next = three;
         return one;
     }
 

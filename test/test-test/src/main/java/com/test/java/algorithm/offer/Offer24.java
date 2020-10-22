@@ -16,7 +16,7 @@ public class Offer24 {
     }
 
     public static void main(String[] args) {
-        ListNode one = ListNodeUtil.initListNode();
+        ListNode one = ListNodeUtil.initListNodeOne();
         Offer24 offer24 = new Offer24();
         ListNodeUtil.printListNode(offer24.reverseList(one));
     }
