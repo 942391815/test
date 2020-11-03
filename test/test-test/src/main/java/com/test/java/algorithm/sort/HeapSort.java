@@ -5,7 +5,7 @@ package com.test.java.algorithm.sort;
  */
 public class HeapSort {
     public static void main(String[] args) {
-        int arr[] = {4, 3, 7, 1, 8, 5};
+        int arr[] = {6, 7, 5, 1, 0, 4, 6};
         int n = arr.length;
         //构建堆
         for (int i = n / 2 - 1; i >= 0; i--) {
