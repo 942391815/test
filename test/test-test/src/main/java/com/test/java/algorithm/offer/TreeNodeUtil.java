@@ -19,19 +19,19 @@ public class TreeNodeUtil {
         TreeNode two = new TreeNode(2);
         TreeNode three = new TreeNode(3);
         TreeNode four = new TreeNode(4);
+        TreeNode five = new TreeNode(5);
         TreeNode six = new TreeNode(6);
         TreeNode seven = new TreeNode(7);
-        TreeNode nine = new TreeNode(9);
 
-        four.left = two;
-        four.right = seven;
+        one.left = two;
+        one.right = three;
 
-        two.left = one;
-        two.right = three;
+        two.left = four;
+        two.right = five;
 
-        seven.left = six;
-        seven.right = nine;
-        return four;
+        three.left = six;
+        three.right = seven;
+        return one;
     }
 
     /**
