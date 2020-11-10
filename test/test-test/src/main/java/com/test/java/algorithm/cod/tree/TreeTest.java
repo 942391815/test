@@ -12,6 +12,7 @@ public class TreeTest {
     public static void main(String[] args) {
         TreeTest treeTest = new TreeTest();
         TreeNode treeNode = TreeNodeUtil.initTreeNode();
+        TreeNode second = TreeNodeUtil.initTreeNodeSecond();
         //二叉树递归先序遍历
         //treeTest.recursionPre(treeNode);
         //二叉树递归中序遍历
@@ -28,7 +29,110 @@ public class TreeTest {
 //        List<List<TreeNode>> lists = treeTest.levelPrintWithLevel(treeNode);
 //        System.out.println(JSONUtils.toJSONString(lists));
         //二叉树蛇形遍历
-        treeTest.snakePrint(treeNode);
+//        treeTest.snakePrint(treeNode);
+        //二叉树最大高度
+//        System.out.println(treeTest.maxLevel(treeNode));
+        //二叉树最小高度
+//        int level = treeTest.minLevel(treeNode);
+//        System.out.println(level);
+        //二叉树最小高度递归
+//        System.out.println(treeTest.recursionMinLevel(treeNode));
+        //是否为对称二叉树
+//        System.out.println(treeTest.isSymmetricTree(treeNode));
+        //是否为二叉树的一部分
+//        System.out.println(treeTest.isPartOfTree(treeNode, second));
+    }
+
+    public boolean isPartOfTree(TreeNode treeNode, TreeNode part) {
+        boolean result = false;
+        if (treeNode != null && part != null) {
+            if (treeNode.val == part.val) {
+                result = isPart(treeNode, part);
+            } else {
+                if (!result) {
+                    result = isPartOfTree(treeNode.left, part);
+                }
+                if (!result) {
+                    result = isPartOfTree(treeNode.right, part);
+                }
+            }
+        }
+        return result;
+    }
+
+    public boolean isPart(TreeNode treeNode, TreeNode part) {
+        if (part == null) {
+            return true;
+        }
+        if (treeNode == null) {
+            return false;
+        }
+        if (Objects.equals(treeNode.val, part.val)) {
+            return isPart(treeNode.left, part.left) && isPart(treeNode.right, part.right);
+        }
+        return false;
+    }
+
+
+    /**
+     * 是否为对称二叉树
+     *
+     * @param root
+     * @return
+     */
+    public boolean isSymmetricTree(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        return isSymmetricTree(root.left, root.right);
+    }
+
+    public boolean isSymmetricTree(TreeNode one, TreeNode two) {
+        if (one == null || two == null) {
+            return false;
+        }
+        if (Objects.equals(one.val, two.val)) {
+            return isSymmetricTree(one.left, two.right) && isSymmetricTree(one.right, two.left);
+        } else {
+            return false;
+        }
+    }
+
+    public int recursionMinLevel(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        return Math.min(recursionMinLevel(root.left), recursionMinLevel(root.right)) + 1;
+    }
+
+    public int minLevel(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int level = 0;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            level++;
+            Queue<TreeNode> next = new LinkedList<>();
+            while (!queue.isEmpty()) {
+                TreeNode treeNode = queue.poll();
+                if (treeNode.left == null || treeNode.right == null) {
+                    return level;
+                }
+                next.add(treeNode.left);
+                next.add(treeNode.right);
+            }
+            queue = next;
+        }
+        return level;
+    }
+
+    public int maxLevel(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        return Math.max(maxLevel(root.left), maxLevel(root.right)) + 1;
     }
 
     public void snakePrint(TreeNode root) {
