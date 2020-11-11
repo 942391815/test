@@ -1,5 +1,6 @@
 package com.test.java.algorithm.cod.tree;
 
+import com.alibaba.druid.support.json.JSONUtils;
 import com.test.java.algorithm.offer.TreeNode;
 import com.test.java.algorithm.offer.TreeNodeUtil;
 
@@ -41,6 +42,31 @@ public class TreeTest {
 //        System.out.println(treeTest.isSymmetricTree(treeNode));
         //是否为二叉树的一部分
 //        System.out.println(treeTest.isPartOfTree(treeNode, second));
+        //二叉树的某一路径和
+        List<List<Integer>> lists = treeTest.pathSum(treeNode, 11);
+        System.out.println(JSONUtils.toJSONString(lists));
+    }
+
+    List<List<Integer>> result = new ArrayList<>();
+
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        getSum(root, sum, new ArrayList<>());
+        return result;
+    }
+
+    public void getSum(TreeNode root, int sum, List<Integer> list) {
+        if (root == null) {
+            return;
+        }
+        sum = sum - root.val;
+        list.add(root.val);
+        if (sum == 0 && root.left == null && root.right == null) {
+            result.add(new ArrayList<>(list));
+        } else {
+            getSum(root.left, sum, list);
+            getSum(root.right, sum, list);
+        }
+        list.remove(list.size() - 1);
     }
 
     public boolean isPartOfTree(TreeNode treeNode, TreeNode part) {
