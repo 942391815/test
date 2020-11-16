@@ -1,6 +1,5 @@
-package com.test.java.algorithm.cod.tree;
+package com.test.java.algorithm.code.tree;
 
-import com.alibaba.druid.support.json.JSONUtils;
 import com.test.java.algorithm.offer.TreeNode;
 import com.test.java.algorithm.offer.TreeNodeUtil;
 
@@ -43,8 +42,117 @@ public class TreeTest {
         //是否为二叉树的一部分
 //        System.out.println(treeTest.isPartOfTree(treeNode, second));
         //二叉树的某一路径和
-        List<List<Integer>> lists = treeTest.pathSum(treeNode, 11);
-        System.out.println(JSONUtils.toJSONString(lists));
+//        List<List<Integer>> lists = treeTest.pathSum(treeNode, 11);
+//        System.out.println(JSONUtils.toJSONString(lists));
+        //二叉树镜像
+//        treeTest.mirroTree(treeNode);
+        //todo 二叉树节点间最大的距离
+        //二叉树的公共祖先
+//        TreeNode treeNode1 = treeTest.lowestCommonAncestor(treeNode, new TreeNode(2), new TreeNode(4));
+//        System.out.println(treeNode1.val);
+        //二叉树的最大距离
+//        System.out.println(treeTest.maxDistance(treeNode));
+        //判断是否是平衡二叉树
+        System.out.println(treeTest.isBalanceTree(treeNode));
+    }
+
+    public boolean isBalanceTree(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        if (!isBalanceTree(root.left)) {
+            return false;
+        }
+        if (!isBalanceTree(root.right)) {
+            return false;
+        }
+        int left = getHeight(root.left);
+        int right = getHeight(root.right);
+        if (Math.abs(left - right) > 1) {
+            return false;
+        }
+        return true;
+    }
+
+    public int getHeight(TreeNode head) {
+        if (head == null) {
+            return 0;
+        }
+        int left = getHeight(head.left) + 1;
+        int right = getHeight(head.right) + 1;
+        return left > right ? left : right;
+    }
+
+    public int maxDistance(TreeNode head) {
+        int[] record = new int[1];
+        return posOrder(head, record);
+    }
+
+    private int posOrder(TreeNode head, int[] record) {
+        if (head == null) {
+            record[0] = 0;
+            return 0;
+        }
+        int lMax = posOrder(head.left, record);
+        int maxFromLeft = record[0];
+        int rMax = posOrder(head.right, record);
+        int maxFromRight = record[0];
+        int curNodeMax = maxFromLeft + maxFromRight;
+        record[0] = Math.max(maxFromLeft, maxFromRight) + 1;
+        return Math.max(Math.max(lMax, rMax), curNodeMax);
+    }
+
+
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        return dfs(root, p, q);
+    }
+
+    public TreeNode dfs(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null || root.val == q.val || root.val == p.val) {
+            return root;
+        }
+        TreeNode left = dfs(root.left, p, q);
+        TreeNode right = dfs(root.right, p, q);
+        if (left == null && right == null) {
+            return null;
+        }
+        if (left == null) {
+            return right;
+        }
+        if (right == null) {
+            return left;
+        }
+        return root;
+    }
+
+    public TreeNode lowestCommonAncestorV1(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) return null; // 如果树为空，直接返回null
+        if (root == p || root == q) return root; // 如果 p和q中有等于 root的，那么它们的最近公共祖先即为root（一个节点也可以是它自己的祖先）
+        TreeNode left = lowestCommonAncestorV1(root.left, p, q); // 递归遍历左子树，只要在左子树中找到了p或q，则先找到谁就返回谁
+        TreeNode right = lowestCommonAncestorV1(root.right, p, q); // 递归遍历右子树，只要在右子树中找到了p或q，则先找到谁就返回谁
+        if (left == null) return right; // 如果在左子树中 p和 q都找不到，则 p和 q一定都在右子树中，右子树中先遍历到的那个就是最近公共祖先（一个节点也可以是它自己的祖先）
+        else if (right == null)
+            return left; // 否则，如果 left不为空，在左子树中有找到节点（p或q），这时候要再判断一下右子树中的情况，如果在右子树中，p和q都找不到，则 p和q一定都在左子树中，左子树中先遍历到的那个就是最近公共祖先（一个节点也可以是它自己的祖先）
+        else return root; //否则，当 left和 right均不为空时，说明 p、q节点分别在 root异侧, 最近公共祖先即为 root
+    }
+
+    public int publicNode(TreeNode treeNode) {
+        return 0;
+    }
+
+    public int maxPath(TreeNode treeNode, TreeNode p, TreeNode q) {
+        return 0;
+    }
+
+    public void mirroTree(TreeNode treeNode) {
+        if (treeNode == null) {
+            return;
+        }
+        TreeNode temp = treeNode.left;
+        treeNode.left = treeNode.right;
+        treeNode.right = temp;
+        mirroTree(treeNode.left);
+        mirroTree(treeNode.right);
     }
 
     List<List<Integer>> result = new ArrayList<>();
