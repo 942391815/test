@@ -12,17 +12,79 @@ import java.util.Objects;
 public class TestLinkedList {
     public static void main(String[] args) {
         ListNode listNode = ListNodeUtil.initListNodeOne();
+        ListNode listNodeTwo = ListNodeUtil.initListNodeTwo();
         TestLinkedList test = new TestLinkedList();
         //删除节点
 //        ListNode listNode1 = test.deleteNode(listNode, 4);
         //反转单链表
 //        ListNode listNode1 = test.reverseNode(listNode);
 //        ListNodeUtil.printListNode(listNode1);
-        ListNode listNode1 = ListNodeUtil.initListCycleNode();
+//        ListNode listNode1 = ListNodeUtil.initListCycleNode();
 //        System.out.println(test.hasCycle(listNode1));
-        System.out.println(test.getCycleNode(listNode1).val);
-
+//        System.out.println(test.getCycleNode(listNode1).val);
+        //
+//        System.out.println(test.isOverlapping(listNode, listNodeTwo));
+        ListNode listNode1 = test.joinNode(listNode, listNodeTwo);
+        ListNodeUtil.printListNode(listNode1);
     }
+
+    //合并两个有序链表
+    public ListNode joinNode(ListNode one, ListNode two) {
+        ListNode head = new ListNode(-1);
+        ListNode temp = head;
+        while (one != null && two != null) {
+            if (one.val < two.val) {
+                temp.next = one;
+                temp = one;
+                one = one.next;
+            } else {
+                temp.next = two;
+                temp = two;
+                two = two.next;
+            }
+        }
+        temp.next = one == null ? two : one;
+        return head.next;
+    }
+
+    //链表是否交叉
+    public boolean isOverlapping(ListNode one, ListNode two) {
+        if (one == null || two == null) {
+            return false;
+        }
+        ListNode oneTemp = one;
+        int oneLen = 0;
+        while (oneTemp != null) {
+            oneLen++;
+            oneTemp = oneTemp.next;
+        }
+        ListNode twoTemp = two;
+        int twoLen = 0;
+        while (twoTemp != null) {
+            twoLen++;
+            twoTemp = twoTemp.next;
+        }
+        int step = Math.abs((oneLen - twoLen));
+        if (oneLen > twoLen) {
+            for (int i = 0; i < step; i++) {
+                one = one.next;
+            }
+        } else if (oneLen < twoLen) {
+            for (int i = 0; i < step; i++) {
+                two = two.next;
+            }
+        }
+        while (one != null && two != null) {
+            if (Objects.equals(one.getVal(), two.getVal())) {
+                return true;
+            } else {
+                one = one.next;
+                two = two.next;
+            }
+        }
+        return false;
+    }
+
     //判断是否有环
     public ListNode getCycleNode(ListNode head) {
         ListNode listNode = hasCycle(head);

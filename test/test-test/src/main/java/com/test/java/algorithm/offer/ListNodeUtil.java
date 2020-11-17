@@ -18,9 +18,9 @@ public class ListNodeUtil {
     public static ListNode initListNodeTwo() {
         ListNode one = new ListNode(0);
         ListNode two = new ListNode(4);
-        ListNode three = new ListNode(10);
+//        ListNode three = new ListNode(10);
         one.next = two;
-        two.next = three;
+//        two.next = three;
         return one;
     }
 
