@@ -26,7 +26,7 @@ public class ListNodeUtil {
 
     public static void printListNode(ListNode listNode) {
         while (listNode != null) {
-            System.out.println(listNode.val);
+            System.out.print(listNode.val + " \t");
             listNode = listNode.next;
         }
     }

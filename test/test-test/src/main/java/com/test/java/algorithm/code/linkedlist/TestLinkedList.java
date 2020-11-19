@@ -3,6 +3,7 @@ package com.test.java.algorithm.code.linkedlist;
 import com.test.java.algorithm.offer.ListNode;
 import com.test.java.algorithm.offer.ListNodeUtil;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -24,8 +25,82 @@ public class TestLinkedList {
 //        System.out.println(test.getCycleNode(listNode1).val);
         //
 //        System.out.println(test.isOverlapping(listNode, listNodeTwo));
-        ListNode listNode1 = test.joinNode(listNode, listNodeTwo);
-        ListNodeUtil.printListNode(listNode1);
+//        ListNode listNode1 = test.joinNode(listNode, listNodeTwo);
+//        ListNodeUtil.printListNode(listNode1);
+//        System.out.println(test.lastK(listNode, 10));
+            //单链表排序
+//        test.sortListNode(listNode);
+        test.reverseBetween(listNode,2,4);
+        ListNodeUtil.printListNode(listNode);
+    }
+
+    //单链表部分反转
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        ListNode temp = new ListNode(0);
+        temp.next = head;
+
+        ListNode g = temp;
+        ListNode p = temp.next;
+        int step = 0;
+        while (step < m - 1) {
+            g = g.next;
+            p = p.next;
+            step++;
+        }
+        for (int i = 0; i < n - m; i++) {
+            ListNode remove = p.next;
+            p.next = p.next.next;
+
+            remove.next = g.next;
+            g.next = remove;
+        }
+        return temp.next;
+    }
+
+    public ListNode sortListNode(ListNode node) {
+        if (node == null || node.next == null) {
+            return node;
+        }
+        ListNode middle = getMiddle(node);
+        ListNode rightHead = middle.next;
+        middle.next = null;
+        ListNode left = sortListNode(node);
+        ListNode right = sortListNode(rightHead);
+        return joinNode(left, right);
+    }
+
+    public ListNode getMiddle(ListNode node) {
+        if (node == null || node.next == null) {
+            return node;
+        }
+        ListNode slow = node;
+        ListNode fast = node.next;
+        while (slow != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+
+    public ListNode lastK(ListNode node, int k) {
+        if (k <= 0) {
+            return null;
+        }
+        ListNode first = node;
+        ListNode result = node;
+        for (int i = 0; i < k; i++) {
+            if (first != null) {
+                first = first.next;
+            } else {
+                return null;
+            }
+        }
+        while (first != null) {
+            first = first.next;
+            result = result.next;
+        }
+        return result;
     }
 
     //合并两个有序链表
