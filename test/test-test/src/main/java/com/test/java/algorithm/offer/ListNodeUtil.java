@@ -15,6 +15,17 @@ public class ListNodeUtil {
         return one;
     }
 
+    public static ListNode initRepeadNode() {
+        ListNode one = new ListNode(1);
+        ListNode two = new ListNode(2);
+        ListNode three = new ListNode(2);
+        ListNode four = new ListNode(1);
+        one.next = two;
+        two.next = three;
+        three.next = four;
+        return one;
+    }
+
     public static ListNode initListNodeTwo() {
         ListNode one = new ListNode(0);
         ListNode two = new ListNode(4);

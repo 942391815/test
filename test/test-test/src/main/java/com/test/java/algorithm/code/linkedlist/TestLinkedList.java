@@ -3,8 +3,7 @@ package com.test.java.algorithm.code.linkedlist;
 import com.test.java.algorithm.offer.ListNode;
 import com.test.java.algorithm.offer.ListNodeUtil;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Created by Micheal on 2020/11/16.
@@ -28,10 +27,60 @@ public class TestLinkedList {
 //        ListNode listNode1 = test.joinNode(listNode, listNodeTwo);
 //        ListNodeUtil.printListNode(listNode1);
 //        System.out.println(test.lastK(listNode, 10));
-            //单链表排序
+        //单链表排序
 //        test.sortListNode(listNode);
-        test.reverseBetween(listNode,2,4);
-        ListNodeUtil.printListNode(listNode);
+//        test.reverseBetween(listNode, 2, 4);
+        //删除重复节点
+        ListNode repeatNode = ListNodeUtil.initRepeadNode();
+//        test.deleteRepeatNode(repeatNode);
+//        ListNodeUtil.printListNode(repeatNode);
+        //判断是否是回文
+        System.out.println(test.symmetric(repeatNode));
+    }
+
+    //链表是否回文（对称）
+    public boolean symmetric(ListNode node) {
+        if (node == null || node.next == null) {
+            return true;
+        }
+        ListNode temp = node;
+        List<Integer> list = new ArrayList<>();
+        while (temp != null) {
+            list.add(temp.val);
+            temp = temp.next;
+        }
+        int i = 0;
+        while (node != null) {
+            if (node.val == list.get(list.size() - i - 1)) {
+                node = node.next;
+                i++;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //删除链表中重复出现的节点
+    public void deleteRepeatNode(ListNode node) {
+        if (node == null) {
+            return;
+        }
+        Set<Integer> set = new HashSet<>();
+        ListNode pre = node;
+        ListNode cur = pre.next;
+        set.add(node.val);
+        while (cur != null) {
+            if (set.contains(cur.val)) {
+                pre.next = cur.next;
+                cur = cur.next;
+            } else {
+                set.add(cur.val);
+                pre = pre.next;
+                cur = cur.next;
+            }
+        }
+
     }
 
     //单链表部分反转

@@ -5,12 +5,10 @@ import org.redisson.Redisson;
 import org.redisson.RedissonClient;
 import org.redisson.core.RLock;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * Created by Micheal on 2020/3/6.
  */
-public class Test {
+public class Test2 {
     static String host = "127.0.0.1";
     static String port = "6379";
 
@@ -22,8 +20,13 @@ public class Test {
         RedissonClient client = Redisson.create(config);
 
         RLock test = client.getLock("test");
-        test.lock();
-        System.out.println("获取成功");
-        Thread.sleep(Integer.MAX_VALUE);
+        while (true){
+            boolean b = test.tryLock();
+            System.out.println(b);
+            Thread.sleep(1000L);
+        }
+//        test.lock(30, TimeUnit.SECONDS);
+//        Thread.sleep(100000L);
+//        test.unlock();
     }
 }
