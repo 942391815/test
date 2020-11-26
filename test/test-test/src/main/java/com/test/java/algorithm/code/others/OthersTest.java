@@ -2,6 +2,7 @@ package com.test.java.algorithm.code.others;
 
 import org.springframework.util.StringUtils;
 
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,9 +15,18 @@ public class OthersTest {
         OthersTest othersTest = new OthersTest();
 //        othersTest.cycle(array, 3);
 
-        System.out.println(othersTest.bigSumV1("555", "555"));
+//        System.out.println(othersTest.bigSumV1("555", "555"));
+        othersTest.lruTest();
     }
 
+    public void lruTest() {
+        LRUTest lruTest = new LRUTest(3);
+        for (int i = 0; i < 5; i++) {
+            lruTest.put("key" + i, i);
+            lruTest.get("key0");
+            System.out.println(lruTest);
+        }
+    }
 
     //顺时针打印矩阵
     public void prntArray(int array[][]) {
