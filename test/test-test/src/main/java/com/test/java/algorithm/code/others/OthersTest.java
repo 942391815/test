@@ -13,12 +13,79 @@ public class OthersTest {
     public static void main(String[] args) {
         int array[] = {1, 2, 3, 4, 5, 6};
         OthersTest othersTest = new OthersTest();
+        //约瑟夫环
 //        othersTest.cycle(array, 3);
-
+        //lru
 //        System.out.println(othersTest.bigSumV1("555", "555"));
-        othersTest.lruTest();
+//        othersTest.lruTest();
+        //数组中出现次数超过一半的数字
+//        int arrayTemp[] = {1,1,2,1};
+//        System.out.println(othersTest.moreThanHalf(arrayTemp));
+//        System.out.println(2&(-2));
+
+        //十进制转二进制
+//        System.out.println(othersTest.ten2Two(2));
+        //二进制转十进制
+        System.out.println(othersTest.two2Ten("1000"));
     }
 
+    public int two2Ten(String s) {
+        int result = 0;
+        int len = s.length() - 1;
+        while (len >= 0) {
+            int i = s.charAt(len) - '0';
+            if (i > 0) {
+                result = result + powForTwo(s.length() - 1 - len);
+            }
+            len--;
+        }
+        return result;
+    }
+
+    int powForTwo(int len) {
+        if (len == 0) {
+            return 1;
+        }
+        int result = 1;
+        for (int i = 0; i < len; i++) {
+            result = result * 2;
+        }
+        return result;
+    }
+
+    //十进制转二进制
+    public String ten2Two(int num) {
+        String result = "";
+        while (num != 0) {
+            result = num % 2 + result;
+            num = num / 2;
+        }
+        return result;
+    }
+
+    //数组中数字出现的次数
+    public int[] cout(int array[]) {
+
+        return null;
+    }
+
+    public int moreThanHalf(int array[]) {
+        int temp = array[0];
+        int count = 1;
+        for (int i = 1; i < array.length; i++) {
+            if (temp == array[i]) {
+                count++;
+            } else {
+                count--;
+                if (count == 0) {
+                    temp = array[i];
+                }
+            }
+        }
+        return temp;
+    }
+
+    //最长组合字符串
     public void lruTest() {
         LRUTest lruTest = new LRUTest(3);
         for (int i = 0; i < 5; i++) {
