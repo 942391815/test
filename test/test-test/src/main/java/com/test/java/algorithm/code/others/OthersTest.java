@@ -26,7 +26,82 @@ public class OthersTest {
         //十进制转二进制
 //        System.out.println(othersTest.ten2Two(2));
         //二进制转十进制
-        System.out.println(othersTest.two2Ten("1000"));
+//        System.out.println(othersTest.two2Ten("1000"));
+        //字符串是否回文
+//        System.out.println(othersTest.isPalindrome("1211"));
+        int tem[] = {1, 0, -5, 100, 20, -100, 500000, 0, 9, 19, 88};
+        othersTest.topK(tem, 3);
+    }
+
+    public void topK(int array[], int top) {
+        int len = array.length;
+        for (int i = (len - 1) / 2; i >= 0; i--) {
+            heapfiy(array, i, len);
+        }
+        for (int i = len - 1; i >= len - i - top; i--) {
+            int temp = array[0];
+            array[0] = array[i];
+            array[i] = temp;
+            heapfiy(array, 0, i);
+        }
+        System.out.println(array);
+        for (int i = 0; i < top; i++) {
+            System.out.println(array[len - i - 1]);
+        }
+
+    }
+
+
+    public void heapfiy(int array[], int index, int size) {
+        int larget = index;
+        int left = index * 2 + 1;
+        int right = index * 2 + 2;
+        if (left < size && array[left] > array[larget]) {
+            larget = left;
+        }
+        if (right < size && array[right] > array[larget]) {
+            larget = right;
+        }
+        if (larget != index) {
+            swap(array, larget, index);
+            heapfiy(array, larget, size);
+        }
+    }
+
+    private void swap(int[] array, int i, int j) {
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+
+    public boolean isPalindrome(int x) {
+        if (x < 0) {
+            return false;
+        } else {
+            int huiwen = 0;
+            int num = x;
+            while (num != 0) {
+                huiwen = huiwen * 10 + num % 10;
+                num /= 10;
+            }
+            return huiwen == x;
+        }
+    }
+
+    /**
+     * 判断字符串是否回文
+     *
+     * @param s
+     * @return
+     */
+    public boolean isPalindrome(String s) {
+        int loops = s.length() / 2;
+        for (int i = 0; i <= loops; i++) {
+            if (!(s.charAt(i) == s.charAt(s.length() - i - 1))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public int two2Ten(String s) {
@@ -65,7 +140,6 @@ public class OthersTest {
 
     //数组中数字出现的次数
     public int[] cout(int array[]) {
-
         return null;
     }
 
