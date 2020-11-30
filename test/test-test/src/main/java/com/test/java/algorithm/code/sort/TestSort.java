@@ -32,24 +32,24 @@ public class TestSort {
         int temp[] = new int[end - start + 1];
         int left = start;
         int right = middle + 1;
-        int index = start;
+        int index = 0;
         while (left <= middle && right <= end) {
             if (array[left] >= array[right]) {
-                temp[index - start] = array[right];
+                temp[index] = array[right];
                 right++;
             } else {
-                temp[index - start] = array[left];
+                temp[index] = array[left];
                 left++;
             }
             index++;
         }
         while (left <= middle) {
-            temp[index - start] = array[left];
+            temp[index] = array[left];
             index++;
             left++;
         }
         while (right <= end) {
-            temp[index - start] = array[right];
+            temp[index] = array[right];
             index++;
             right++;
         }
