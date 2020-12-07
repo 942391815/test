@@ -29,8 +29,35 @@ public class OthersTest {
 //        System.out.println(othersTest.two2Ten("1000"));
         //字符串是否回文
 //        System.out.println(othersTest.isPalindrome("1211"));
-        int tem[] = {1, 0, -5, 100, 20, -100, 500000, 0, 9, 19, 88};
-        othersTest.topK(tem, 3);
+//        int tem[] = {1, 0, -5, 100, 20, -100, 500000, 0, 9, 19, 88};
+//        othersTest.topK(tem, 3);
+//        System.out.println(othersTest.isMatch("aaa", "ab*ac*a"));
+        int tempArray[][] = {
+                {1, 2, 3},
+                {4, 5, 6},
+                {7, 8, 9}
+        };
+        othersTest.printArray(tempArray);
+    }
+
+    //正则表达式匹配
+    public boolean isMatch(String s, String p) {
+        if (p.length() == 0) {
+            return s.length() == 0;
+        }
+        if (p.length() > 1 && p.charAt(1) == '*') {
+            //p的下一个字符是*
+            // 1 把 * 前面的字符都消除掉，也就是0次匹配
+            // 2 一次或者多次匹配
+            return isMatch(s, p.substring(2)) || (s.length() > 0 && com(s, p)) && isMatch(s.substring(1), p);
+        } else {
+            //p的下一个字符不是*
+            return s.length() > 0 && com(s, p) && (isMatch(s.substring(1), p.substring(1)));
+        }
+    }
+
+    boolean com(String s, String p) {
+        return s.charAt(0) == p.charAt(0) || p.charAt(0) == '.';
     }
 
     public void topK(int array[], int top) {
@@ -170,9 +197,47 @@ public class OthersTest {
     }
 
     //顺时针打印矩阵
-    public void prntArray(int array[][]) {
-
+    public void printArray(int array[][]) {
+        if (array == null || array.length == 0 || array[0].length == 0) {
+            return;
+        }
+        int start = 0;
+        int row = array.length;
+        int column = array[0].length;
+        while (row > start * 2 && column > start * 2) {
+            printArray(array, row, column, start);
+            start++;
+        }
     }
+
+    //start表示圈数
+    private void printArray(int array[][], int row, int column, int start) {
+        int endX = column - start - 1;
+        int endY = row - start - 1;
+        //从左往右
+        for (int i = start; i <= endX; i++) {
+            System.out.print(array[start][i] + " \t");
+        }
+        //从上往下
+        if (start < endY) {
+            for (int i = start + 1; i <= endY; i++) {
+                System.out.print(array[i][endX] + " \t");
+            }
+        }
+        //从右往左
+        if (start < endX && start < endY) {
+            for (int i = endX - 1; i >= start; i--) {
+                System.out.print(array[endY][i] + " \t");
+            }
+        }
+        //从下往上
+        if (start < endX && start < endY - 1) {
+            for (int i = endY - 1; i > start; i--) {
+                System.out.print(array[i][start] + " \t");
+            }
+        }
+    }
+
 
     //窗口最大值的数组
     public int[] maxSlidingWindow(int[] nums, int k) {
