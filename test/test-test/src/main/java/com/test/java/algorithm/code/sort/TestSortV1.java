@@ -10,11 +10,11 @@ public class TestSortV1 {
 //        test.bubbleSort(array);
 //        test.quickSort(array);
 //        test.heapSort(array);
-        test.mergeSort(array);
-        test.printArray(array);
+//        test.mergeSort(array);
+//        test.printArray(array);
     }
 
-    public void mergeSort(int array[]) {
+    private void mergeSort(int[] array) {
         mergeSort(array, 0, array.length - 1);
     }
 
@@ -23,25 +23,27 @@ public class TestSortV1 {
             int middle = (start + end) / 2;
             mergeSort(array, start, middle);
             mergeSort(array, middle + 1, end);
-            mergeSort(array, start, middle, end);
+            mergeSort(array, start, end, middle);
         }
     }
 
-    public void mergeSort(int array[], int start, int middle, int end) {
+    public void mergeSort(int array[], int start, int end, int middle) {
+        if (start > end) {
+            return;
+        }
         int temp[] = new int[end - start + 1];
-        int index = 0;
         int left = start;
         int right = middle + 1;
+        int index = 0;
         while (left <= middle && right <= end) {
             if (array[left] > array[right]) {
-                temp[index] = array[right];
-                right++;
-                index++;
-            } else {
                 temp[index] = array[left];
                 left++;
-                index++;
+            } else {
+                temp[index] = array[right];
+                right++;
             }
+            index++;
         }
         while (left <= middle) {
             temp[index] = array[left];
@@ -53,30 +55,29 @@ public class TestSortV1 {
             right++;
             index++;
         }
-        //copy
         for (int i = 0; i < temp.length; i++) {
             array[start + i] = temp[i];
         }
     }
 
-    public void heapSort(int array[]) {
-        if (array == null) {
+    private void heapSort(int[] array) {
+        if (array == null || array.length == 0) {
             return;
         }
+        for (int i = array.length / 2; i >= 0; i--) {
+            heapfiy(array, i, array.length);
+        }
         int size = array.length;
-        for (int i = size / 2; i >= 0; i--) {
-            heapSort(array, i, size);
+        for (int i = size - 1; i >= 0; i--) {
+            int temp = array[i];
+            array[i] = array[0];
+            array[0] = temp;
+            heapfiy(array, 0, i);
         }
 
-        for (int i = size - 1; i >= 0; i--) {
-            int temp = array[0];
-            array[0] = array[i];
-            array[i] = temp;
-            heapSort(array, 0, i);
-        }
     }
 
-    public void heapSort(int array[], int index, int size) {
+    private void heapfiy(int array[], int index, int size) {
         int largest = index;
         int left = 2 * index + 1;
         int right = 2 * index + 2;
@@ -88,45 +89,47 @@ public class TestSortV1 {
         }
         if (largest != index) {
             swap(array, largest, index);
-            heapSort(array, largest, size);
+            heapfiy(array, largest, size);
         }
     }
 
-    public void swap(int array[], int i, int j) {
+    private void swap(int array[], int i, int j) {
         int temp = array[i];
         array[i] = array[j];
         array[j] = temp;
     }
 
-    public void quickSort(int array[]) {
+    private void quickSort(int[] array) {
         quickSort(array, 0, array.length - 1);
     }
 
-    public void quickSort(int array[], int start, int end) {
+    private void quickSort(int array[], int start, int end) {
         if (start >= end) {
             return;
         }
-        int left = start;
-        int right = end;
-        int key = array[start];
-        while (left < right) {
-            while (left < right && key <= array[right]) {
-                right--;
+        int low = start;
+        int hight = end;
+        int key = array[low];
+        while (low < hight) {
+            while (low < hight && array[hight] >= key) {
+                hight--;
             }
-            array[left] = array[right];
-            while (left < right && key >= array[left]) {
-                left++;
+            array[low] = array[hight];
+            while (low < hight && array[low] <= key) {
+                low++;
             }
-            array[right] = array[left];
+            array[hight] = array[low];
         }
-        array[left] = key;
-        quickSort(array, start, left);
-        quickSort(array, left + 1, end);
-
+        array[low] = key;
+        quickSort(array, start, low - 1);
+        quickSort(array, low + 1, end);
     }
 
-    public void bubbleSort(int array[]) {
-        for (int i = 0; i < array.length - 1; i++) {
+    private void bubbleSort(int[] array) {
+        if (array == null || array.length == 0) {
+            return;
+        }
+        for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array.length - i - 1; j++) {
                 if (array[j] > array[j + 1]) {
                     int temp = array[j];
@@ -137,9 +140,11 @@ public class TestSortV1 {
         }
     }
 
+
     public void printArray(int array[]) {
         for (int i = 0; i < array.length; i++) {
             System.out.print(array[i] + "\t");
         }
+        System.out.println();
     }
 }

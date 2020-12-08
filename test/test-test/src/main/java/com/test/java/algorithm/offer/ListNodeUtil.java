@@ -15,6 +15,15 @@ public class ListNodeUtil {
         return one;
     }
 
+    public static ListNode initListNodeThree() {
+        ListNode one = new ListNode(1);
+        ListNode two = new ListNode(2);
+        ListNode three = new ListNode(3);
+        one.next = two;
+        two.next = three;
+        return one;
+    }
+
     public static ListNode initRepeadNode() {
         ListNode one = new ListNode(1);
         ListNode two = new ListNode(2);
@@ -34,6 +43,18 @@ public class ListNodeUtil {
 //        two.next = three;
         return one;
     }
+
+    public static ListNode initDisorderNode() {
+        ListNode one = new ListNode(0);
+        ListNode two = new ListNode(100);
+        ListNode three = new ListNode(10);
+        ListNode four = new ListNode(50);
+        one.next = two;
+        two.next = three;
+        three.next = four;
+        return one;
+    }
+
 
     public static void printListNode(ListNode listNode) {
         while (listNode != null) {

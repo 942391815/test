@@ -35,7 +35,8 @@ public class TestLinkedList {
 //        test.deleteRepeatNode(repeatNode);
 //        ListNodeUtil.printListNode(repeatNode);
         //判断是否是回文
-        System.out.println(test.symmetric(repeatNode));
+//        System.out.println(test.symmetric(repeatNode));
+        test.getMiddle(listNode);
     }
 
     //链表是否回文（对称）
@@ -118,13 +119,14 @@ public class TestLinkedList {
         return joinNode(left, right);
     }
 
+
     public ListNode getMiddle(ListNode node) {
         if (node == null || node.next == null) {
             return node;
         }
         ListNode slow = node;
         ListNode fast = node.next;
-        while (slow != null && fast.next != null) {
+        while (slow != null && fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
