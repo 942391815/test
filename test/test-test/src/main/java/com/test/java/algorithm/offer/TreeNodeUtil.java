@@ -13,6 +13,36 @@ public class TreeNodeUtil {
         printfByLevel(treeNode);
     }
 
+    public static TreeNode initSeriTreeNode() {
+        // 4,2,7,1,3,6,9
+        TreeNode one = new TreeNode(1);
+        TreeNode two = new TreeNode(2);
+        TreeNode three = new TreeNode(3);
+        TreeNode four = new TreeNode(4);
+        TreeNode five = new TreeNode(5);
+        one.left = two;
+        one.right = three;
+        three.left = four;
+        three.right = five;
+        return one;
+    }
+
+    public static TreeNode initMiddelNode() {
+        // 4,2,7,1,3,6,9
+        TreeNode one = new TreeNode(1);
+        TreeNode two = new TreeNode(2);
+        TreeNode three = new TreeNode(3);
+        TreeNode five = new TreeNode(5);
+        TreeNode six = new TreeNode(6);
+
+        five.left = two;
+        five.right = six;
+        two.left = one;
+        two.right = three;
+        return five;
+    }
+
+
     public static TreeNode initTreeNodeSecond() {
         // 4,2,7,1,3,6,9
         TreeNode one = new TreeNode(1);

@@ -10,6 +10,7 @@ import java.lang.ref.WeakReference;
  */
 public class Test {
     private int id = 0;
+
     public static void main(String[] args) throws Exception {
         soft();
 //        A a = new A();
@@ -29,11 +30,10 @@ public class Test {
 //        System.out.println("Finish");
     }
 
-
     public static void soft() throws Exception {
-        Test obj = new Test();
-        ReferenceQueue<Test> refQueue = new ReferenceQueue<Test>();
-        WeakReference<Test> softRef = new WeakReference<Test>(obj, refQueue);
+        Object obj = new Object();
+        ReferenceQueue<Object> refQueue = new ReferenceQueue<Object>();
+        SoftReference<Object> softRef = new SoftReference<Object>(obj, refQueue);
         System.out.println(softRef.get()); // java.lang.Object@f9f9d8
         System.out.println(refQueue.poll());// null
 
@@ -41,12 +41,26 @@ public class Test {
         obj = null;
         System.gc();
 
-//        Thread.sleep(5000);
         System.out.println(softRef.get());
-        Reference<? extends Test> poll = refQueue.poll();
-        Test test = poll.get();
-        System.out.println(poll + "---" + test);
+
+        Thread.sleep(2200);
+        System.out.println(refQueue.poll());
     }
+
+//    public static void soft() throws Exception {
+//        Test obj = new Test();
+//        ReferenceQueue<Test> refQueue = new ReferenceQueue<Test>();
+//        SoftReference<Test> softRef = new SoftReference<Test>(obj, refQueue);
+//        System.out.println("get-->>" + softRef.get()+": refQueue :"+refQueue.poll()); // java.lang.Object@f9f9d8
+//        // 清除强引用,触发GC
+//        obj = null;
+//        System.gc();
+//
+//        Thread.sleep(500);
+//        Test test = softRef.get();
+//        System.out.println(test);
+//        System.out.println("回收后 get-->>" + softRef.get()+": refQueue :"+refQueue.poll()); // java.lang.Object@f9f9d8
+//    }
 
 }
 
