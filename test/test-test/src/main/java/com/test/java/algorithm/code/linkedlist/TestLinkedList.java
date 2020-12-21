@@ -29,14 +29,37 @@ public class TestLinkedList {
 //        System.out.println(test.lastK(listNode, 10));
         //单链表排序
 //        test.sortListNode(listNode);
-//        test.reverseBetween(listNode, 2, 4);
+        test.reverseBetween(listNode, 2, 4);
         //删除重复节点
-        ListNode repeatNode = ListNodeUtil.initRepeadNode();
+//        ListNode repeatNode = ListNodeUtil.initRepeadNode();
 //        test.deleteRepeatNode(repeatNode);
 //        ListNodeUtil.printListNode(repeatNode);
         //判断是否是回文
 //        System.out.println(test.symmetric(repeatNode));
         test.getMiddle(listNode);
+    }
+
+    //单链表部分反转
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        ListNode temp = new ListNode(0);
+        temp.next = head;
+
+        ListNode g = temp;
+        ListNode p = temp.next;
+        int step = 0;
+        while (step < m - 1) {
+            g = g.next;
+            p = p.next;
+            step++;
+        }
+        for (int i = 0; i < n - m; i++) {
+            ListNode remove = p.next;
+            p.next = p.next.next;
+
+            remove.next = g.next;
+            g.next = remove;
+        }
+        return temp.next;
     }
 
     //链表是否回文（对称）
@@ -82,29 +105,6 @@ public class TestLinkedList {
             }
         }
 
-    }
-
-    //单链表部分反转
-    public ListNode reverseBetween(ListNode head, int m, int n) {
-        ListNode temp = new ListNode(0);
-        temp.next = head;
-
-        ListNode g = temp;
-        ListNode p = temp.next;
-        int step = 0;
-        while (step < m - 1) {
-            g = g.next;
-            p = p.next;
-            step++;
-        }
-        for (int i = 0; i < n - m; i++) {
-            ListNode remove = p.next;
-            p.next = p.next.next;
-
-            remove.next = g.next;
-            g.next = remove;
-        }
-        return temp.next;
     }
 
     public ListNode sortListNode(ListNode node) {

@@ -25,7 +25,6 @@ public class TestSort {
             mergeSort(array, middle + 1, end);
             mergeSort(array, start, middle, end);
         }
-
     }
 
     public void mergeSort(int[] array, int start, int middle, int end) {
