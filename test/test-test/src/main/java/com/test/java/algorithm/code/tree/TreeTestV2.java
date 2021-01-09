@@ -1,6 +1,5 @@
 package com.test.java.algorithm.code.tree;
 
-import com.alibaba.druid.support.json.JSONUtils;
 import com.test.java.algorithm.offer.TreeNode;
 import com.test.java.algorithm.offer.TreeNodeUtil;
 
@@ -49,13 +48,33 @@ public class TreeTestV2 {
 //        treeTest.mirroTree(treeNode);
         //todo 二叉树节点间最大的距离
         //二叉树的公共祖先
-        TreeNode treeNode1 = treeTest.lowestCommonAncestor(treeNode, new TreeNode(2), new TreeNode(4));
-        System.out.println(treeNode1.val);
+//        TreeNode treeNode1 = treeTest.lowestCommonAncestor(treeNode, new TreeNode(2), new TreeNode(4));
+//        System.out.println(treeNode1.val);
         //二叉树的最大距离
 //        System.out.println(treeTest.maxDistance(treeNode));
         //判断是否是平衡二叉树
-//        System.out.println(treeTest.isBalanceTree(treeNode));
+        System.out.println(treeTest.isBalanceTree(treeNode));
     }
+
+    private boolean isBalanceTree(TreeNode treeNode) {
+        if (treeNode == null) {
+            return true;
+        }
+        int leftH = getHeight(treeNode.left);
+        int rightH = getHeight(treeNode.right);
+        if (Math.abs(leftH - rightH) > 1) {
+            return false;
+        }
+        return isBalanceTree(treeNode.left) && isBalanceTree(treeNode.right);
+    }
+
+    private int getHeight(TreeNode treeNode) {
+        if (treeNode == null) {
+            return 0;
+        }
+        return Math.max(getHeight(treeNode.left), getHeight(treeNode.right)) + 1;
+    }
+
 
     private TreeNode lowestCommonAncestor(TreeNode treeNode, TreeNode one, TreeNode two) {
         if (treeNode == null || treeNode.val == one.val || treeNode.val == two.val) {
