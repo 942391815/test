@@ -26,6 +26,7 @@
         <module>test-spring</module>
         <module>../test-drools</module>
         <module>test-drools</module>
+        <module>test-thrift</module>
     </modules>
     <build>
         <plugins>
