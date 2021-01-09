@@ -377,6 +377,7 @@ public class TestLinkedList {
             head = head.next;
             fast = fast.next;
         }
+
         return head;
     }
 

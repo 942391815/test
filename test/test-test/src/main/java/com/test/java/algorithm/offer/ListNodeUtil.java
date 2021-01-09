@@ -29,9 +29,13 @@ public class ListNodeUtil {
         ListNode two = new ListNode(2);
         ListNode three = new ListNode(2);
         ListNode four = new ListNode(1);
+        ListNode five = new ListNode(1);
+        ListNode six = new ListNode(1);
         one.next = two;
         two.next = three;
         three.next = four;
+//        four.next = five;
+//        five.next = six;
         return one;
     }
 
