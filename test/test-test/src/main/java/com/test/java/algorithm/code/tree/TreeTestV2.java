@@ -53,7 +53,39 @@ public class TreeTestV2 {
         //二叉树的最大距离
 //        System.out.println(treeTest.maxDistance(treeNode));
         //判断是否是平衡二叉树
-        System.out.println(treeTest.isBalanceTree(treeNode));
+//        System.out.println(treeTest.isBalanceTree(treeNode));
+        //重建二叉树
+        int pre[] = {3, 9, 20, 15, 7};
+        int middle[] = {9, 3, 15, 20, 7};
+        TreeNode treeNode1 = treeTest.buildTree(pre, middle);
+        TreeNodeUtil.printfByLevel(treeNode1);
+    }
+
+    public TreeNode buildTree(int[] pre, int[] mid) {
+        if (pre == null || pre.length == 0) {
+            return null;
+        }
+        TreeNode root = new TreeNode(pre[0]);
+        int rootVal = pre[0];
+        int index = 0;
+        for (int i = 0; i < mid.length; i++) {
+            if (rootVal == mid[i]) {
+                index = i;
+                break;
+            }
+        }
+        //前序左子树
+        int[] preLeft = Arrays.copyOfRange(pre, 1, index + 1);
+        //前序右子树
+        int[] preRight = Arrays.copyOfRange(pre, index + 1, pre.length);
+        //中序左子树
+        int[] middleLeft = Arrays.copyOfRange(mid, 0, index);
+        //中序右子树
+        int[] middleRight = Arrays.copyOfRange(mid, index + 1, mid.length);
+
+        root.left = buildTree(preLeft, middleLeft);
+        root.right = buildTree(preRight, middleRight);
+        return root;
     }
 
     private boolean isBalanceTree(TreeNode treeNode) {
