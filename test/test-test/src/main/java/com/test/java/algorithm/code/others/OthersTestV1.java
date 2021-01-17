@@ -48,6 +48,35 @@ public class OthersTestV1 {
         ArrayUtil.printArray(result);
 //        String s = "abcabcbb";
 //        System.out.println(othersTest.lengthOfLongestSubstringV1(s));
+        int arrayMul[] = {1, 2, 3, 4, 5};
+        System.out.println(othersTest.constructArr(arrayMul));
+    }
+
+    public int[] constructArr(int[] array) {
+        if (array == null || array.length == 0) {
+            return new int[0];
+        }
+        int left[] = new int[array.length];
+        init(left);
+        int right[] = new int[array.length];
+        init(right);
+        int result[] = new int[array.length];
+        for (int i = 1; i < array.length; i++) {
+            left[i] = left[i - 1] * array[i - 1];
+        }
+        for (int i = array.length - 2; i >= 0; i--) {
+            right[i] = right[i + 1] * array[i + 1];
+        }
+        for (int i = 0; i < array.length; i++) {
+            result[i] = left[i] * right[i];
+        }
+        return result;
+    }
+
+    void init(int array[]) {
+        for (int i = 0; i < array.length; i++) {
+            array[i] = 1;
+        }
     }
 
     public String longestPalindromeV1(String s) {
