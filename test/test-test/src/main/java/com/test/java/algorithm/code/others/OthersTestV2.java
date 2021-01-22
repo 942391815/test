@@ -2,9 +2,9 @@ package com.test.java.algorithm.code.others;
 
 import com.test.java.algorithm.offer.ArrayUtil;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+
+import static jdk.nashorn.internal.objects.Global.print;
 
 /**
  * Created by Micheal on 2020/11/22.
@@ -21,7 +21,85 @@ public class OthersTestV2 {
 //        System.out.println(othersTest.permutation("baa"));
 
 //        System.out.println(Integer.MAX_VALUE / 10);
-        System.out.println(othersTest.strToIntTwo("   -42"));
+//        System.out.println(othersTest.strToIntTwo("   -42"));
+        int array[] = {1, 3, -1, -3, 5, 3, 6, 7};
+        int[] result = othersTest.maxSlidingWindow(array, 3);
+        ArrayUtil.printArray(result);
+
+        System.out.println();
+        int arrayTemp[][] = {
+                {1, 2, 3},
+                {4, 5, 6},
+                {7, 8, 9}
+        };
+        othersTest.spiralOrder(arrayTemp);
+    }
+
+    public int[] spiralOrder(int array[][]) {
+        if (array == null || array.length == 0) {
+            return new int[0];
+        }
+        int row = array.length;
+        int column = array[0].length;
+        int start = 0;
+        while (row > start * 2 && column > start * 2) {
+            printArray(array, row, column, start);
+            start++;
+        }
+        return null;
+    }
+
+    private void printArray(int array[][], int row, int column, int start) {
+        int endColumn = column - start - 1;
+        int endRow = row - start - 1;
+        //从左到右
+        for (int i = start; i <= endColumn; i++) {
+            System.out.print(array[start][i] + "\t");
+        }
+        //从上到下
+        if (start < endRow) {
+            for (int i = start + 1; i <= endRow; i++) {
+                System.out.print(array[i][endColumn] + "\t");
+            }
+        }
+        //从下到上
+        if (start < endColumn && start < endRow) {
+            for (int i = endColumn - 1; i >= start; i--) {
+                System.out.print(array[endRow][i] + "\t");
+            }
+        }
+        if (start < endColumn && start < endRow - 1) {
+            for (int i = endRow - 1; i >= start + 1; i--) {
+                System.out.print(array[i][start] + "\t");
+            }
+        }
+
+    }
+
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        if (nums == null || nums.length == 0 || k <= 0) {
+            return new int[0];
+        }
+        int result[] = new int[nums.length - k + 1];
+        Deque<Integer> deque = new LinkedList<>();
+        for (int i = 0; i < k; i++) {
+            while (!deque.isEmpty() && deque.getLast() < nums[i]) {
+                deque.removeLast();
+            }
+            deque.addLast(nums[i]);
+        }
+        result[0] = deque.getFirst();
+        for (int i = k, j = 1; i < nums.length; i++, j++) {
+            if (!deque.isEmpty() && deque.getFirst() == nums[i - k]) {
+                deque.removeFirst();
+            }
+            while (!deque.isEmpty() && deque.getLast() < nums[i]) {
+                deque.removeLast();
+            }
+            deque.addLast(nums[i]);
+            result[j] = deque.getFirst();
+        }
+        return result;
     }
 
     public int strToIntTwo(String str) {
