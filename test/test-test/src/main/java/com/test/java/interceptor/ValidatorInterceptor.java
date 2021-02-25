@@ -37,12 +37,11 @@ public class ValidatorInterceptor implements ApplicationContextAware{
 						Annotation each = parameterAnnotations[i][j];
 						if(each instanceof NotNull){
 							if(!validatorNotNull(args[i], (NotNull)each)){
-								throw new ValidationException("验证无法通过");
-//								System.out.println("验证无法通过");
+								throw new ValidationException("123");
 							}
 						}else if(each instanceof CustomValidator){
 							if(!customValidator(args[i], (CustomValidator)each)){
-								throw new ValidationException("验证无法通过");
+								throw new ValidationException("123");
 							}
 						} 
 					}

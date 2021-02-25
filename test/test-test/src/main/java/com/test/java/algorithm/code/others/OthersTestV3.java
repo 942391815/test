@@ -1,7 +1,5 @@
 package com.test.java.algorithm.code.others;
 
-import com.sun.corba.se.impl.oa.toa.TOA;
-import com.test.java.algorithm.offer.ArrayUtil;
 import com.test.java.algorithm.offer.ListNode;
 import com.test.java.algorithm.offer.TreeNode;
 import com.test.java.algorithm.offer.TreeNodeUtil;

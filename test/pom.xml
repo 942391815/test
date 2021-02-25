@@ -24,8 +24,6 @@
         <module>test-mybaits</module>
         <module>test-lucene</module>
         <module>test-spring</module>
-        <module>../test-drools</module>
-        <module>test-drools</module>
         <module>test-thrift</module>
     </modules>
     <build>

@@ -4,7 +4,6 @@ import com.test.java.algorithm.offer.ArrayUtil;
 
 import java.util.*;
 
-import static jdk.nashorn.internal.objects.Global.print;
 
 /**
  * Created by Micheal on 2020/11/22.

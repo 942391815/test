@@ -3,7 +3,7 @@ package com.test.java.thread;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 /**
- * jdk 自带的队列
+ * jdk
  * @author Micheal
  *
  */

@@ -9,7 +9,7 @@ public class DateUtils {
 	public static final int MINUTES = 60*1000;
 	public static final int SECONDS = 1000;
 	/**
-	 *  ±º‰µƒº‰∏Ù
+	 * convert
 	 * @param before
 	 * @param after
 	 */
@@ -21,19 +21,19 @@ public class DateUtils {
 		instanceAfter.setTime(after);
 		long time = instanceAfter.getTimeInMillis()-instanceBefore.getTimeInMillis();
 		if(time>DAY){
-			value = value+time/DAY+"ÃÏ";
+			value = value+time/DAY+"Êó•";
 			time = time%DAY;
 		}
 		if(time>HOUR){
-			value = value+time/HOUR+"–° ±";
+			value = value+time/HOUR+"Â∞èÊó∂";
 			time = time%HOUR;
 		}
 		if(time>MINUTES){
-			value = value+time/MINUTES+"∑÷÷”";
+			value = value+time/MINUTES+"ÂàÜÈíü";
 			time = time%MINUTES;
 		}
 		if(time>SECONDS){
-			value = value+time/SECONDS+"√Î";
+			value = value+time/SECONDS+"Áßí";
 			time = time%SECONDS;
 		}
 		return value;

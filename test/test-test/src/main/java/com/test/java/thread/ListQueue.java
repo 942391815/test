@@ -16,7 +16,7 @@ public class ListQueue {
 		lock.lockInterruptibly();
 		try{
 			while(list.size()==size){
-				System.out.println("队列已经满了。。。");
+				System.out.println("remove");
 				put.await();
 			}
 			System.out.println("put.."+obj);
@@ -30,7 +30,7 @@ public class ListQueue {
 		lock.lockInterruptibly();
 		try{
 			while(list.size()==0){
-				System.out.println("队列为空。。。");
+				System.out.println("remove");
 				take.await();
 			}
 			put.signal();
