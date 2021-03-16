@@ -6,10 +6,34 @@ package com.test.java.algorithm.bit;
  */
 public class NumberBit {
     public static void main(String[] args) {
-        int numbers[] = {1, 2, 4, 3, 1, 2, 3, 1, 2, 3};
+        int numbers[] = {1, 2, 4, 3, 1, 2, 3, 1, 2, 3, 666, 666, 666};
         System.out.println(findNumberApperaingOnce(numbers));
         System.out.println(findOnceAppear(numbers));
+        System.out.println(findOnceAppearV1(numbers));
+
     }
+
+    public static int findOnceAppearV1(int num[]) {
+        if (num == null || num.length == 0) {
+            return -1;
+        }
+        int result = 0;
+        for (int i = 0; i < 32; i++) {
+            int index = 1 << i;
+            int count = 0;
+            for (int j = 0; j < num.length; j++) {
+                if ((num[j] & index) != 0) {
+                    count++;
+                }
+            }
+            if (count % 3 != 0) {
+                result = result | index;
+            }
+        }
+        return result;
+    }
+
+
     public static int findOnceAppear(int num[]) {
         if (num == null || num.length == 0) {
             return -1;
@@ -31,6 +55,7 @@ public class NumberBit {
         }
         return result;
     }
+
     public static int findNumberApperaingOnce(int numbers[]) {
         if (numbers == null || numbers.length == 0) {
             return -1;
