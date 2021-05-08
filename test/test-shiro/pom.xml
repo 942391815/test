@@ -9,7 +9,7 @@
     <artifactId>test-shiro</artifactId>
     <packaging>war</packaging>
     <properties>
-        <shiro.version>1.2.0</shiro.version>
+        <shiro.version>1.6.0</shiro.version>
         <spring.version>4.0.0.RELEASE</spring.version>
         <mybatis.version>3.2.4</mybatis.version>
     </properties>
