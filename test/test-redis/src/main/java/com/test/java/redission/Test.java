@@ -20,10 +20,8 @@ public class Test {
         //单机模式  依次设置redis地址和密码
         config.useSingleServer().setAddress("127.0.0.1:6379");
         RedissonClient client = Redisson.create(config);
-
-        RLock test = client.getLock("test");
-        test.lock();
         System.out.println("获取成功");
         Thread.sleep(Integer.MAX_VALUE);
+
     }
 }
